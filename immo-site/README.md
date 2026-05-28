@@ -118,6 +118,19 @@ Dans `index.html`, cherche `XXX` — il y a 3 endroits à changer :
 
 ---
 
+## Changer les photos du fond (hero)
+
+Le grand fond en haut du site alterne entre 2 photos toutes les 6 secondes.
+
+1. Nomme tes photos exactement comme ça et place-les dans `photos/` :
+   - `photos/hero1.jpg` — première photo (ex: vue de Roquebrune)
+   - `photos/hero2.jpg` — deuxième photo (ex: plage de Menton)
+2. Pour **ajouter une 3ème photo** : dans `index.html`, cherche `hero-slide` et ajoute une ligne, puis un `<button>` dans `hero-dots`, et change `HERO_SLIDES.length` sera automatiquement correct.
+
+**Format recommandé :** JPG, largeur minimum 1920px, paysage (16/9 idéal).
+
+---
+
 ## Structure des fichiers
 
 ```
