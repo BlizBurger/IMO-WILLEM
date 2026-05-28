@@ -1,4 +1,4 @@
-# Van der Immo — Guide d'utilisation
+# SARL Bonestroo — Guide d'utilisation
 
 ## Déployer le site sur Netlify
 
