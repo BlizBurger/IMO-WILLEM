@@ -1,133 +1,6 @@
-# SARL Bonestroo — Guide d'utilisation
+# Guide d'utilisation — SARL Bonestroo Immo
 
-## Déployer le site sur Netlify
-
-1. Va sur [netlify.com](https://www.netlify.com) et connecte-toi (ou crée un compte gratuit)
-2. Depuis le tableau de bord, clique sur **"Add new site" → "Deploy manually"**
-3. Glisse-dépose le dossier `immo-site/` entier dans la zone prévue
-4. C'est tout ! Netlify te donne une URL en quelques secondes
-
-Pour mettre à jour le site : fais la même opération, Netlify remplace l'ancienne version.
-
----
-
-## Modifier un bien (dans index.html)
-
-Ouvre `index.html` avec un éditeur de texte (Notepad, TextEdit, VS Code...).
-
-Cherche la section `const BIENS = [` — c'est là que sont toutes les propriétés.
-
-Chaque bien ressemble à ça :
-
-```js
-{
-  id: 1,
-  type: "appartement",          // "appartement" ou "maison"
-  badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
-  badgeClass: "",               // "" = terre cuite, "exclu" = bleu
-  prix: "485 000 €",
-  localisation: { fr: "Menton — Vieille Ville", en: "Menton — Old Town", nl: "Menton — Oude Stad" },
-  lat: 43.7754, lng: 7.5019,    // coordonnées GPS (voir ci-dessous)
-  tags: {
-    fr: ["92 m²", "3 pièces", "Vue mer", "Terrasse"],
-    en: ["92 m²", "3 rooms", "Sea view", "Terrace"],
-    nl: ["92 m²", "3 kamers", "Zeezicht", "Terras"]
-  },
-  photos: [],                   // chemins des photos, ex: ["photos/bien1_a.jpg", "photos/bien1_b.jpg"]
-  video: null,                  // chemin vidéo, ex: "videos/bien1.mp4"  — ou null si pas de vidéo
-  stats: {
-    "m²": 92,
-    fr: { "Pièces": 3, "Étage": 4, "DPE": "B" },
-    en: { "Rooms": 3, "Floor": 4, "EPC": "B" },
-    nl: { "Kamers": 3, "Verdieping": 4, "EPC": "B" }
-  },
-  description: {
-    fr: "Description en français...",
-    en: "Description in English...",
-    nl: "Beschrijving in het Nederlands..."
-  }
-}
-```
-
-Pour **ajouter** un bien : copie-colle un bloc entier entre `{` et `}`, change l'`id` (mets le suivant), et mets à jour les infos.
-
-Pour **supprimer** un bien : supprime tout le bloc de `{` jusqu'au `}` correspondant (et la virgule avant ou après).
-
----
-
-## Ajouter des photos
-
-1. Place tes photos dans le dossier `photos/`
-2. Nomme-les clairement : `bien1_salon.jpg`, `bien1_chambre.jpg`, etc.
-3. Dans le JSON du bien, mets les chemins dans le tableau `photos` :
-
-```js
-photos: ["photos/bien1_salon.jpg", "photos/bien1_chambre.jpg", "photos/bien1_terrasse.jpg"]
-```
-
-Les photos s'affichent en galerie dans le modal (navigation avec les flèches).
-
-**Format recommandé :** JPG ou WebP, largeur 1200px minimum, ratio 16/9 ou 3/2.
-
----
-
-## Ajouter une vidéo
-
-1. **Convertis les fichiers .mov en .mp4** avant de les utiliser (le navigateur ne lit pas .mov)
-   - Sur Mac : ouvre le fichier .mov dans QuickTime → Fichier → Exporter → iPhone/iPad → enregistre en .mp4
-   - En ligne : [cloudconvert.com](https://cloudconvert.com) (MOV → MP4)
-2. Place le fichier .mp4 dans le dossier `videos/`
-3. Dans le JSON du bien, change `video: null` par le chemin :
-
-```js
-video: "videos/bien1.mp4"
-```
-
----
-
-## Trouver les coordonnées GPS d'une adresse
-
-1. Va sur [maps.google.com](https://maps.google.com)
-2. Cherche l'adresse du bien
-3. **Clic droit** sur le point exact sur la carte
-4. Les coordonnées apparaissent tout en haut du menu contextuel (ex: `43.7754, 7.5019`)
-5. Clique dessus pour les copier
-6. Dans le JSON : `lat: 43.7754, lng: 7.5019`
-
----
-
-## Remplacer les infos de l'agence
-
-Dans `index.html`, cherche `XXX` — il y a 3 endroits à changer :
-
-| Ce qu'il faut changer | Où chercher |
-|---|---|
-| Numéro de téléphone | Cherche `+33 4 93 XX XX XX` |
-| Email | Cherche `contact@vanderimmo.fr` |
-| Adresse | Cherche `12 Promenade du Soleil` |
-| Numéro carte pro | Cherche `N° XXXXX` |
-
----
-
-## Générer un QR code (pour les vitrines, flyers...)
-
-1. Va sur [qr-code-generator.com](https://www.qr-code-generator.com) (gratuit)
-2. Colle l'URL de ton site Netlify
-3. Télécharge en PNG ou SVG
-4. C'est prêt à imprimer
-
----
-
-## Changer les photos du fond (hero)
-
-Le grand fond en haut du site alterne entre 2 photos toutes les 6 secondes.
-
-1. Nomme tes photos exactement comme ça et place-les dans `photos/` :
-   - `photos/hero1.jpg` — première photo (ex: vue de Roquebrune)
-   - `photos/hero2.jpg` — deuxième photo (ex: plage de Menton)
-2. Pour **ajouter une 3ème photo** : dans `index.html`, cherche `hero-slide` et ajoute une ligne, puis un `<button>` dans `hero-dots`, et change `HERO_SLIDES.length` sera automatiquement correct.
-
-**Format recommandé :** JPG, largeur minimum 1920px, paysage (16/9 idéal).
+Ce guide explique comment maintenir et mettre à jour le site immobilier de SARL Bonestroo sans connaissance technique avancée.
 
 ---
 
@@ -135,8 +8,265 @@ Le grand fond en haut du site alterne entre 2 photos toutes les 6 secondes.
 
 ```
 immo-site/
-├── index.html      ← le site entier
-├── photos/         ← tes photos de biens (jpg, webp)
-├── videos/         ← tes vidéos (mp4 uniquement)
-└── README.md       ← ce guide
+├── index.html            ← Page d'accueil
+├── bien.html             ← Fiche détail d'un bien
+├── mentions-legales.html ← Mentions légales / CGU / RGPD
+├── data.js               ← Toutes les données des biens (à modifier)
+├── i18n.js               ← Traductions FR / EN / NL
+├── transitions.js        ← Animations de navigation
+├── main.js               ← Logique page d'accueil
+├── bien.js               ← Logique fiche détail
+├── style.css             ← Feuille de style principale
+├── photos/               ← Vos photos de biens et de fond
+├── videos/               ← Vos vidéos (mp4 uniquement)
+└── README.md             ← Ce guide
 ```
+
+---
+
+## 1. Ajouter un bien dans `data.js`
+
+Ouvrez le fichier `data.js` avec un éditeur de texte (Notepad++, VS Code, ou même le Bloc-Notes).
+
+Copiez un bloc `{ ... }` existant dans le tableau `BIENS`, collez-le à la fin (avant le `]` final) et modifiez tous les champs.
+
+**Structure minimale à renseigner :**
+
+```js
+{
+  id: 7,                          // Numéro unique — toujours plus grand que le dernier
+  type: 'appartement',            // 'appartement' ou 'maison-villa'
+  badge: {
+    fr: 'Nouveau',
+    en: 'New',
+    nl: 'Nieuw'
+  },
+  badgeClass: '',                 // '' pour badge terre-cuite, 'exclu' pour badge bleu
+  prix: '350 000 €',             // Texte affiché
+  prixNum: 350000,               // Nombre pur pour le filtre budget
+  localisation: {
+    fr: 'Menton — Garavan',
+    en: 'Menton — Garavan',
+    nl: 'Menton — Garavan'
+  },
+  adresseComplete: '12 Avenue de la Gare, 06500 Menton',
+  lat: 43.7750,                  // Coordonnées GPS (voir section 4)
+  lng: 7.5010,
+  tags: {
+    fr: ['65 m²', '2 pièces', 'Balcon'],
+    en: ['65 m²', '2 rooms', 'Balcony'],
+    nl: ['65 m²', '2 kamers', 'Balkon']
+  },
+  photos: [
+    'photos/bien7_1.jpg',        // Chemins vers vos photos (voir section 2)
+    'photos/bien7_2.jpg'
+  ],
+  video: null,                   // null si pas de vidéo, sinon 'videos/bien7.mp4'
+  stats: {
+    'm²': 65,
+    fr: { 'Pièces': 2, 'Étage': 1, 'DPE': 'C' },
+    en: { 'Rooms': 2, 'Floor': 1, 'EPC': 'C' },
+    nl: { 'Kamers': 2, 'Verdieping': 1, 'EPC': 'C' }
+  },
+  caracteristiques: {
+    fr: ['Double vitrage', 'Cave privative', 'Parking en sous-sol'],
+    en: ['Double glazing', 'Private cellar', 'Underground parking'],
+    nl: ['Dubbele beglazing', 'Privékelder', 'Ondergrondse parkeerplaats']
+  },
+  distances: {
+    fr: [
+      { lieu: 'Plage', distance: '5 min à pied' },
+      { lieu: 'Gare SNCF', distance: '10 min à pied' }
+    ],
+    en: [
+      { lieu: 'Beach', distance: '5 min walk' },
+      { lieu: 'Train station', distance: '10 min walk' }
+    ],
+    nl: [
+      { lieu: 'Strand', distance: '5 min te voet' },
+      { lieu: 'Treinstation', distance: '10 min te voet' }
+    ]
+  },
+  description: {
+    fr: [
+      'Premier paragraphe de description en français...',
+      'Deuxième paragraphe...',
+      'Troisième paragraphe...'
+    ],
+    en: [
+      'First paragraph in English...',
+      'Second paragraph...',
+      'Third paragraph...'
+    ],
+    nl: [
+      'Eerste alinea in het Nederlands...',
+      'Tweede alinea...',
+      'Derde alinea...'
+    ]
+  }
+}
+```
+
+> **Important :** ne pas oublier la virgule `,` après l'accolade fermante `}` du bien précédent avant de coller le nouveau bloc.
+
+---
+
+## 2. Nommer et placer les photos
+
+Placez toutes les photos dans le dossier **`photos/`**.
+
+Convention de nommage obligatoire :
+
+```
+photos/bien1_1.jpg    ← 1ère photo du bien n°1
+photos/bien1_2.jpg    ← 2ème photo du bien n°1
+photos/bien1_3.jpg    ← 3ème photo du bien n°1
+photos/bien2_1.jpg    ← 1ère photo du bien n°2
+```
+
+**Format recommandé :** JPEG ou WebP, largeur minimale 1400 px, poids maximum 400 Ko par image.
+
+Pour les photos de fond de la page d'accueil :
+
+```
+photos/hero1.jpg      ← 1ère photo de fond du hero
+photos/hero2.jpg      ← 2ème photo de fond du hero
+```
+
+Dans `data.js`, renseignez le tableau `photos` du bien ainsi :
+
+```js
+photos: [
+  'photos/bien7_1.jpg',
+  'photos/bien7_2.jpg',
+  'photos/bien7_3.jpg'
+],
+```
+
+---
+
+## 3. Convertir une vidéo .mov en .mp4
+
+Les vidéos iPhone sont au format `.mov`. Le site n'accepte que le format `.mp4`.
+
+**Conversion gratuite en ligne :**
+
+1. Allez sur [cloudconvert.com/mov-to-mp4](https://cloudconvert.com/mov-to-mp4)
+2. Déposez votre fichier `.mov`
+3. Cliquez **Convert** puis téléchargez le fichier `.mp4`
+4. Renommez le fichier : `bien7.mp4`
+5. Placez-le dans le dossier `videos/`
+6. Dans `data.js`, remplacez `video: null` par `video: 'videos/bien7.mp4'`
+
+---
+
+## 4. Trouver les coordonnées GPS d'un bien
+
+Pour placer un bien correctement sur la carte :
+
+1. Ouvrez **Google Maps** dans votre navigateur
+2. Naviguez jusqu'au bien
+3. Faites un **clic droit** sur l'emplacement exact
+4. Cliquez sur les coordonnées qui apparaissent (ex : `43.7754, 7.5019`) — elles sont copiées automatiquement
+5. Collez-les dans `data.js` :
+   - La première valeur est `lat`
+   - La seconde valeur est `lng`
+
+```js
+lat: 43.7754,
+lng: 7.5019,
+```
+
+---
+
+## 5. Déployer le site sur Netlify (première fois)
+
+1. Allez sur [netlify.com](https://www.netlify.com) et créez un compte gratuit (avec votre email)
+2. Sur le tableau de bord, cliquez **Add new site → Deploy manually**
+3. **Glissez-déposez le dossier entier `immo-site/`** dans la zone prévue
+4. Netlify génère une URL du type `https://random-name.netlify.app`
+5. Pour personnaliser l'URL : **Site settings → Change site name** (ex : `bonestroo-immo`)
+
+> Le site sera en ligne en moins d'une minute.
+
+---
+
+## 6. Mettre à jour le site (après modification)
+
+Après avoir modifié des fichiers (ajout de bien, nouvelles photos, etc.) :
+
+1. Retournez sur [app.netlify.com](https://app.netlify.com)
+2. Cliquez sur votre site
+3. Allez dans l'onglet **Deploys**
+4. Glissez-déposez à nouveau le dossier `immo-site/` complet dans la zone de dépôt
+
+Le site se met à jour en quelques secondes.
+
+---
+
+## 7. Numéros de téléphone et CPI à compléter
+
+Les champs suivants contiennent des **valeurs fictives** à remplacer avant la mise en ligne :
+
+| Ce qu'il faut changer | Dans quel fichier | Rechercher |
+|---|---|---|
+| Numéro de téléphone | `index.html` | `+33 4 93 XX XX XX` |
+| Numéro de téléphone | `bien.html` | `+33493XXXXXX` (×2) |
+| Numéro de téléphone | `bien.js` | `+33493XXXXXX` (×2) |
+| Numéro de carte pro | `index.html`, `bien.html` | `N° XXXXX` |
+| Numéro de carte pro | `i18n.js` | `footer_carte` dans les 3 langues |
+| CPI / CCI | `mentions-legales.html` | `À COMPLÉTER` (×3) |
+| Adresse agence | `index.html` | `12 Promenade du Soleil` (section contact) |
+
+---
+
+## 8. Changer la photo de fond (hero)
+
+Les photos de fond du bandeau principal de la page d'accueil sont :
+
+- `photos/hero1.jpg` (affichée en premier)
+- `photos/hero2.jpg` (affichée en second, alternance toutes les 6 s)
+
+Pour les remplacer :
+
+1. Préparez vos nouvelles photos (format paysage, min. 1920 × 1080 px, JPEG)
+2. Nommez-les exactement `hero1.jpg` et `hero2.jpg`
+3. Placez-les dans le dossier `photos/` (remplacement des anciennes)
+
+Pour ajouter un troisième slide, dans `index.html`, ajoutez avant la balise `</section>` du hero :
+
+```html
+<div class="hero-slide" style="background-image:url('photos/hero3.jpg')"></div>
+```
+
+Et dans le bloc `<div class="hero-dots">` :
+
+```html
+<button class="hero-dot" onclick="goToHeroSlide(2)"></button>
+```
+
+---
+
+## 9. Modifier les témoignages
+
+Les témoignages affichés sur la page d'accueil sont définis dans **`main.js`**, dans le tableau `TESTIMONIALS` :
+
+```js
+const TESTIMONIALS = [
+  {
+    text:   'Le texte du témoignage...',
+    author: 'Prénom & Prénom N.',
+    lieu:   'Ville — Type de bien',
+    stars:  5        // de 1 à 5
+  },
+  // ... autres témoignages
+];
+```
+
+Pour modifier un témoignage, changez les valeurs `text`, `author`, `lieu` et `stars`.
+
+Pour en ajouter un, copiez un bloc `{ ... }` et collez-le dans le tableau avec une virgule de séparation.
+
+---
+
+*Guide rédigé pour SARL Bonestroo — 1 Avenue Poincarré, 06190 Roquebrune-Cap-Martin*
