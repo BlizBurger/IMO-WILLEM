@@ -1766,7 +1766,86 @@
 
 <script>
 // ===== DONNÉES BIENS =====
-const BIENS = [];
+const BIENS = [
+  {
+    id: 1,
+    type: "appartement",
+    badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
+    badgeClass: "exclu",
+    prix: "890 000 €",
+    prixNum: 890000,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
+    adresseComplete: "Rue de la Fontaine, 06190 Roquebrune-Cap-Martin",
+    lat: 43.764729, lng: 7.458946,
+    tags: {
+      fr: ["83 m² LC", "3 pièces + studio", "Terrasse 9,5 m²", "Village médiéval", "Parking Rataou"],
+      en: ["83 m² LC", "3 rooms + studio", "Terrace 9.5 m²", "Medieval village", "Parking Rataou"],
+      nl: ["83 m² LC", "3 kamers + studio", "Terras 9,5 m²", "Middeleeuws dorp", "Parking Rataou"]
+    },
+    photos: [],
+    video: null,
+    stats: {
+      "m²": 83,
+      fr: { "Pièces": "3 + studio", "Niveaux": 3, "Terrasse": "9,5 m²", "DPE": "E", "Chauffage": "Gaz individuel" },
+      en: { "Rooms": "3 + studio", "Levels": 3, "Terrace": "9.5 m²", "EPC": "E", "Heating": "Individual gas" },
+      nl: { "Kamers": "3 + studio", "Niveaus": 3, "Terras": "9,5 m²", "EPC": "E", "Verwarming": "Individueel gas" }
+    },
+    caracteristiques: {
+      fr: ["Studio indépendant au rez-de-chaussée (ancienne cave)", "Terrasse 9,5 m² hors Carrez", "Chaudière condensation gaz naturel (2019)", "2 salles d'eau avec WC", "Sols béton ciré", "Rue piétonne calme", "Bâtiment ancien (1800)", "3 niveaux", "Parking privé haut du village — Rataou (école du Rataou)"],
+      en: ["Self-contained ground-floor studio (former cellar)", "9.5 m² terrace (outside Carrez)", "Condensing gas boiler (2019)", "2 shower rooms with WC", "Polished concrete floors", "Quiet pedestrian street", "Historic building (1800)", "3 levels", "Private parking upper village — Rataou (Rataou school)"],
+      nl: ["Onafhankelijke studio op begane grond (voormalige kelder)", "Terras 9,5 m² (buiten Carrez)", "Condenserende gasketel (2019)", "2 doucheruimtes met WC", "Gietvloer beton ciré", "Rustige voetgangersstraat", "Historisch pand (1800)", "3 niveaus", "Privéparkeerplaats bovendorp — Rataou (school Rataou)"]
+    },
+    distances: {
+      fr: { "Parking Rataou (privé)": "2 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Rataou parking (private)": "2 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Parking Rataou (privé)": "2 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
+    },
+    description: {
+      fr: "Au cœur du village médiéval de Roquebrune-Cap-Martin, cet appartement de caractère sur trois niveaux offre 83,34 m² loi Carrez et une terrasse de 9,5 m² sur les toits du village. La distribution comprend une chambre au rez-de-chaussée avec douche et WC, deux chambres au 1er étage avec deux salles d'eau, un séjour et une cuisine au 2e étage. Un studio indépendant (ancienne cave) vient compléter l'ensemble — idéal comme espace invités ou bureau.\n\nChaudière à condensation gaz naturel récente (2019), sols béton ciré, murs en pierre de taille de 50 cm d'épaisseur — une inertie thermique naturelle qui garantit fraîcheur l'été et chaleur l'hiver. Parking privatif inclus dans la vente, haut du village au Rataou, à côté de l'école du Rataou — un atout rare dans ce secteur entièrement piétonnier.\n\nBâtiment d'avant 1800, rue confidentielle, à l'écart du flux touristique.",
+      en: "In the heart of Roquebrune-Cap-Martin's medieval village, this characterful three-level apartment offers 83.34 m² (Carrez) and a 9.5 m² roof terrace. The layout includes a ground-floor bedroom with shower and WC, two bedrooms on the 1st floor each with en-suite shower rooms, and a living room and kitchen on the 2nd floor. An independent studio (former cellar) completes the property — ideal as a guest suite or home office.\n\nRecent condensing gas boiler (2019), polished concrete floors, 50 cm thick stone walls providing natural thermal mass — cool in summer, warm in winter. Private parking included in the sale, upper village at Rataou next to the school — a rare asset in this fully pedestrianised area.\n\nBuilding pre-1800, on a discreet street away from tourist traffic.",
+      nl: "In het hart van het middeleeuwse dorp Roquebrune-Cap-Martin biedt dit karaktervolle appartement op drie niveaus 83,34 m² (Carrez) en een terras van 9,5 m² op de daken. De indeling omvat een slaapkamer op de begane grond met douche en WC, twee slaapkamers op de 1e verdieping met badkamers, en een woonkamer en keuken op de 2e verdieping. Een onafhankelijke studio (voormalige kelder) completeert het geheel.\n\nRecente condenserende gasketel (2019), beton ciré vloeren, 50 cm dikke stenen muren voor natuurlijke thermische massa. Privéparkeerplaats inbegrepen, bovendorp bij de school van Rataou — een zeldzaam voordeel in deze voetgangerszone.\n\nGebouw van vóór 1800, rustige vertrouwelijke straat."
+    }
+  },
+  {
+    id: 2,
+    type: "appartement",
+    badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
+    badgeClass: "",
+    prix: "Prix sur demande",
+    prixNum: 0,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
+    adresseComplete: "10 rue Pie, 06190 Roquebrune-Cap-Martin",
+    lat: 43.764729, lng: 7.458946,
+    tags: {
+      fr: ["83 m² LC", "3 pièces + studio", "Terrasse 9,5 m²", "Village médiéval", "Gaz individuel"],
+      en: ["83 m² LC", "3 rooms + studio", "Terrace 9.5 m²", "Medieval village", "Individual gas"],
+      nl: ["83 m² LC", "3 kamers + studio", "Terras 9,5 m²", "Middeleeuws dorp", "Individueel gas"]
+    },
+    photos: [],
+    video: null,
+    stats: {
+      "m²": 83,
+      fr: { "Pièces": "3 + studio", "Niveaux": 3, "Terrasse": "9,5 m²", "DPE": "E", "Chauffage": "Gaz individuel" },
+      en: { "Rooms": "3 + studio", "Levels": 3, "Terrace": "9.5 m²", "EPC": "E", "Heating": "Individual gas" },
+      nl: { "Kamers": "3 + studio", "Niveaus": 3, "Terras": "9,5 m²", "EPC": "E", "Verwarming": "Individueel gas" }
+    },
+    caracteristiques: {
+      fr: ["Studio indépendant au rez-de-chaussée (ancienne cave)", "Terrasse 9,5 m² hors Carrez", "Chaudière condensation gaz naturel (2019)", "2 salles d'eau avec WC", "Sols béton ciré", "Rue piétonne calme", "Bâtiment ancien (1800)", "3 niveaux"],
+      en: ["Self-contained ground-floor studio (former cellar)", "9.5 m² terrace (outside Carrez)", "Condensing gas boiler (2019)", "2 shower rooms with WC", "Polished concrete floors", "Quiet pedestrian street", "Historic building (1800)", "3 levels"],
+      nl: ["Onafhankelijke studio op begane grond (voormalige kelder)", "Terras 9,5 m² (buiten Carrez)", "Condenserende gasketel (2019)", "2 doucheruimtes met WC", "Gietvloer beton ciré", "Rustige voetgangersstraat", "Historisch pand (1800)", "3 niveaus"]
+    },
+    distances: {
+      fr: { "Parkings village": "2 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "2 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "2 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
+    },
+    description: {
+      fr: "Au cœur du village médiéval de Roquebrune-Cap-Martin, cet appartement de caractère sur trois niveaux offre 83,34 m² loi Carrez et une terrasse de 9,5 m² sur les toits du village. La distribution comprend une chambre au rez-de-chaussée avec douche et WC, deux chambres au 1er étage avec deux salles d'eau, un séjour et une cuisine au 2e étage. Un studio indépendant (ancienne cave) vient compléter l'ensemble.\n\nChaudière à condensation gaz naturel récente (2019), sols béton ciré, murs en pierre de taille de 50 cm d'épaisseur. Bâtiment d'avant 1800, rue piétonne confidentielle, à l'écart du bruit touristique. Commerces, restaurants et panoramas méditerranéens à deux pas.",
+      en: "In the heart of Roquebrune-Cap-Martin's medieval village, this characterful three-level apartment offers 83.34 m² (Carrez) and a 9.5 m² roof terrace. The layout includes a ground-floor bedroom with shower and WC, two bedrooms on the 1st floor each with en-suite shower rooms, and a living room and kitchen on the 2nd floor. An independent studio (former cellar) completes the property.\n\nRecent condensing gas boiler (2019), polished concrete floors, 50 cm thick stone walls. Building pre-1800, on a discreet pedestrian street away from tourist noise.",
+      nl: "In het hart van het middeleeuwse dorp Roquebrune-Cap-Martin biedt dit karaktervolle appartement op drie niveaus 83,34 m² (Carrez) en een terras van 9,5 m² op de daken. De indeling omvat een slaapkamer op de begane grond met douche en WC, twee slaapkamers op de 1e verdieping met badkamers, en een woonkamer en keuken op de 2e verdieping. Een studio completeert het geheel.\n\nRecente condenserende gasketel (2019), beton ciré vloeren, 50 cm dikke stenen muren. Gebouw van vóór 1800, rustige voetgangersstraat."
+    }
+  }
+];
 
 // ===== I18N =====
 const I18N = {
