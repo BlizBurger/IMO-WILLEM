@@ -139,6 +139,37 @@
       border-color: var(--terre);
     }
 
+    /* ===== FOND FIXE GLOBAL ===== */
+    /* Les slides sont FIXED derrière tout — ils ne bougent jamais */
+    .hero-slide {
+      position: fixed;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: scroll; /* inutile en fixed, mais propre */
+      opacity: 0;
+      transition: opacity 1.6s ease-in-out;
+      z-index: -2;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    /* Overlay sombre fixe lui aussi */
+    .hero-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,18,10,0.40) 0%,
+        rgba(10,18,10,0.20) 40%,
+        rgba(10,18,10,0.60) 100%
+      );
+      z-index: -1;
+      pointer-events: none;
+    }
+
     /* ===== HERO ===== */
     #hero {
       min-height: 100vh;
@@ -146,43 +177,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
-      background: #1a2e1a;
-    }
-
-    /* Photo slideshow layers */
-    .hero-slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      opacity: 0;
-      transition: opacity 1.6s ease-in-out;
-    }
-
-    /* iOS ne supporte pas background-attachment:fixed — on revient au scroll */
-    @supports (-webkit-touch-callout: none) {
-      .hero-slide {
-        background-attachment: scroll;
-      }
-    }
-
-    .hero-slide.active {
-      opacity: 1;
-    }
-
-    /* Dark gradient overlay for text legibility */
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to bottom,
-          rgba(10,18,10,0.35) 0%,
-          rgba(10,18,10,0.18) 40%,
-          rgba(10,18,10,0.55) 100%
-        );
-      z-index: 1;
+      background: transparent; /* laisse voir le fond fixe */
     }
 
     /* Subtle tile pattern on top of photo */
@@ -198,6 +193,18 @@
       height: 100%;
       opacity: 0.04;
     }
+
+    /* Toutes les sections ont un fond opaque pour cacher le slideshow derrière */
+    #biens, #carte, #contact {
+      position: relative;
+      z-index: 1;
+    }
+
+    #biens    { background: var(--blanc); }
+    #carte    { background: var(--sable); }
+    #contact  { background: white; }
+    .divider  { position: relative; z-index: 1; background: var(--sable); }
+    footer, .footer-legal-bar { position: relative; z-index: 1; }
 
     /* Slide indicators */
     .hero-dots {
