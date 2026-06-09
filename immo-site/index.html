@@ -1545,7 +1545,86 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLcE=" crossorigin=""></script>
 <script>
 // ===== DONNÉES BIENS =====
-const BIENS = [];
+const BIENS = [
+  {
+    id: 1,
+    type: "maison",
+    badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
+    badgeClass: "exclu",
+    prix: "630 000 €",
+    prixNum: 630000,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
+    adresseComplete: "10 Rue Pie, 06190 Roquebrune-Cap-Martin",
+    lat: 43.7647, lng: 7.4589,
+    tags: {
+      fr: ["83 m² LC", "3 pièces + studio", "Terrasse", "Vue mer & Monaco", "Vendue meublée"],
+      en: ["83 m² LC", "3 rooms + studio", "Terrace", "Sea & Monaco view", "Sold furnished"],
+      nl: ["83 m² LC", "3 kamers + studio", "Terras", "Zee- & Monacoview", "Gemeubileerd verkocht"]
+    },
+    photos: [],
+    video: null,
+    stats: {
+      "m²": 83,
+      fr: { "Pièces": "3 + studio", "Niveaux": 3, "Terrasse": "9,5 m²", "DPE": "E", "Chauffage": "Gaz individuel" },
+      en: { "Rooms": "3 + studio", "Levels": 3, "Terrace": "9.5 m²", "EPC": "E", "Heating": "Individual gas" },
+      nl: { "Kamers": "3 + studio", "Niveaus": 3, "Terras": "9,5 m²", "EPC": "E", "Verwarming": "Individueel gas" }
+    },
+    caracteristiques: {
+      fr: ["Rénovée par Toni Cordero (architecte turinois, 1937–2001)", "Vendue équipée et meublée (mobilier artisans turinois)", "Meubles encastrés en iroko massif", "Vue mer Méditerranée et Monaco depuis séjour et terrasse", "Terrasse 9,5 m² protégée face à la mer (table 6 pers. + plancha)", "Studio indépendant au RDC (ancienne cave) — petite vue mer", "2 chambres avec salle d'eau en suite (douche italienne en pierre + WC)", "Cuisine voûtée équipée", "Sol béton ciré, murs colorés, rocher apparent dans les pièces", "Chaudière condensation gaz (2019)", "Volets persiennés + voile sur mesure terrasse", "Rue piétonne calme — bâtiment ~1800"],
+      en: ["Renovated by Toni Cordero (Turinese architect, 1937–2001)", "Sold furnished & equipped (Turin craftsmen furniture)", "Built-in solid iroko wood furniture", "Sea & Monaco view from living room and terrace", "9.5 m² sheltered terrace facing the sea (6-person table + plancha)", "Independent studio at ground floor (former cellar) — sea glimpse", "2 bedrooms with en-suite shower rooms (Italian stone shower + WC)", "Vaulted fitted kitchen", "Polished concrete floors, coloured walls, exposed rock", "Condensing gas boiler (2019)", "Louvred shutters + custom terrace sail shade", "Quiet pedestrian street — c.1800 building"],
+      nl: ["Gerenoveerd door Toni Cordero (Turijnse architect, 1937–2001)", "Gemeubileerd en uitgerust verkocht (meubilair Turijnse ambachtslieden)", "Ingebouwde massief iroko houten meubels", "Zee- en Monacoview vanuit woonkamer en terras", "Beschut terras 9,5 m² met zeezicht (tafel 6 pers. + plancha)", "Onafhankelijke studio op begane grond (voormalige kelder) — klein zeezicht", "2 slaapkamers met ensuite badkamer (Italiaanse stenen douche + WC)", "Gewelfde ingerichte keuken", "Beton ciré vloer, gekleurde muren, zichtbaar rotsblok", "Condenserende gasketel (2019)", "Lamellen luiken + op maat terraszeildoek", "Rustige voetgangersstraat — gebouw ~1800"]
+    },
+    distances: {
+      fr: { "Parkings village": "2 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "2 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "2 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
+    },
+    description: {
+      fr: "Maison de village rénovée par Toni Cordero (1937–2001), célèbre architecte turinois, et très bien entretenue depuis. Vendue équipée et meublée — canapé, fauteuils, table, chaises, lits, vaisselle, draps, serviettes — avec sa décoration soignée et de nombreux éléments réalisés par des artisans turinois spécifiquement pour la maison : tentures, coussins, rideaux, portes et meubles encastrés en iroko massif.\n\nLa distribution sur trois niveaux : au rez-de-chaussée, la chambre n°1 avec salle d'eau et WC ; au 1er étage, l'entrée, deux chambres (parentale et enfant) avec chacune leur salle d'eau à douche italienne en pierre et WC, deux débarras ; au 2e étage, le séjour avec vue mer et Monaco, la cuisine voûtée équipée et la terrasse de 9,5 m² protégée face à la mer. En annexe, un studio indépendant (ancienne cave) avec petite vue mer, kitchenette, douche et WC.\n\nMaison ancienne construite adossée au rocher — apparent dans de nombreuses pièces — qui contraste avec le sol en béton ciré et les murs colorés, dans un esprit Baléares ou Cyclades. Rue piétonne confidentielle, fenêtres ouvertes en été grâce à l'inertie thermique naturelle des murs épais.",
+      en: "Village house renovated by Toni Cordero (1937–2001), the celebrated Turinese architect, and meticulously maintained ever since. Sold furnished and equipped — sofa, armchairs, table, chairs, beds, crockery, linen, towels — with carefully considered décor and numerous elements made by Turin craftsmen specifically for the house: curtains, cushions, drapes, doors, and built-in solid iroko wood furniture.\n\nThe layout over three levels: on the ground floor, bedroom n°1 with shower room and WC; on the 1st floor, the entrance hall, two bedrooms (master and child's) each with their own en-suite Italian stone shower room and WC, two storage rooms; on the 2nd floor, the living room with sea and Monaco views, a vaulted fitted kitchen, and a 9.5 m² sheltered terrace facing the sea. Separately, an independent studio (former cellar) with a sea glimpse, kitchenette, shower and WC.\n\nAn ancient house built against the village rock — exposed throughout the rooms — contrasting with the polished concrete floors and coloured walls, evoking the Balearics or the Cyclades. A discreet pedestrian street; windows open all summer thanks to the natural thermal inertia of thick stone walls.",
+      nl: "Dorpshuis gerenoveerd door Toni Cordero (1937–2001), de beroemde Turijnse architect, en sindsdien perfect onderhouden. Gemeubileerd en uitgerust verkocht — bank, fauteuils, tafel, stoelen, bedden, servies, lakens, handdoeken — met een verzorgde inrichting en talrijke elementen speciaal vervaardigd door Turijnse ambachtslieden: gordijnen, kussens, deuren en ingebouwde massief iroko houten meubels.\n\nIndeling over drie niveaus: op de begane grond slaapkamer n°1 met doucheruimte en WC; op de 1e verdieping de entree, twee slaapkamers (ouder- en kinderkamer) elk met ensuite Italiaanse stenen doucheruimte en WC, twee bergingen; op de 2e verdieping de woonkamer met zee- en Monacoview, een gewelfde ingerichte keuken en een beschut terras van 9,5 m². Daarnaast een onafhankelijke studio (voormalige kelder) met klein zeezicht, kitchenette, douche en WC.\n\nEen oud huis gebouwd tegen het dorpsrots — zichtbaar in meerdere kamers — dat contrasteert met de beton ciré vloeren en gekleurde muren, in een sfeer die doet denken aan de Balearen of de Cycladen. Rustige voetgangersstraat; ramen open in de zomer dankzij de natuurlijke thermische traagheid van de dikke stenen muren."
+    }
+  },
+  {
+    id: 2,
+    type: "maison",
+    badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
+    badgeClass: "",
+    prix: "890 000 €",
+    prixNum: 890000,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
+    adresseComplete: "28 Rue de la Fontaine, 06190 Roquebrune-Cap-Martin",
+    lat: 43.7650, lng: 7.4592,
+    tags: {
+      fr: ["96 m²", "3 chambres", "Jardin privatif", "Terrasse", "DPE C"],
+      en: ["96 m²", "3 bedrooms", "Private garden", "Terrace", "EPC C"],
+      nl: ["96 m²", "3 slaapkamers", "Privétuin", "Terras", "EPC C"]
+    },
+    photos: [],
+    video: null,
+    stats: {
+      "m²": 96,
+      fr: { "Pièces": "3 chambres", "Niveaux": 3, "Jardin": "Oui", "DPE": "C", "Chauffage": "À préciser" },
+      en: { "Rooms": "3 bedrooms", "Levels": 3, "Garden": "Yes", "EPC": "C", "Heating": "To confirm" },
+      nl: { "Kamers": "3 slaapkamers", "Niveaus": 3, "Tuin": "Ja", "EPC": "C", "Verwarming": "Nader te bepalen" }
+    },
+    caracteristiques: {
+      fr: ["3 chambres dont 2 avec salle d'eau privative", "Salle à manger séparée", "Cuisine indépendante", "Grand séjour au rez-de-jardin", "Terrasse", "Jardin privatif", "Buanderie", "DPE C (156 kWh/m²/an) — très bonne performance", "Aucune amiante détectée", "Construction avant 1949", "Plusieurs niveaux avec escalier intérieur", "Village médiéval piétonnier"],
+      en: ["3 bedrooms, 2 with private en-suite", "Separate dining room", "Independent kitchen", "Large living room at garden level", "Terrace", "Private garden", "Utility room", "EPC C (156 kWh/m²/year) — excellent energy performance", "No asbestos detected", "Pre-1949 construction", "Multi-level with internal staircase", "Pedestrian medieval village"],
+      nl: ["3 slaapkamers, 2 met privé ensuite", "Aparte eetkamer", "Onafhankelijke keuken", "Grote woonkamer op tuinniveau", "Terras", "Privétuin", "Wasruimte", "EPC C (156 kWh/m²/jaar) — uitstekende energieprestatie", "Geen asbest aangetroffen", "Bouw vóór 1949", "Meerdere niveaus met interne trap", "Voetgangers middeleeuws dorp"]
+    },
+    distances: {
+      fr: { "Parkings village": "3 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "3 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "3 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
+    },
+    description: {
+      fr: "Maison de village sur plusieurs niveaux dans le vieux Roquebrune-Cap-Martin, offrant 96,60 m² et une distribution généreuse et rare dans ce secteur : trois chambres dont deux avec salle d'eau privative, une salle à manger séparée, une cuisine indépendante, un grand séjour au rez-de-jardin, une terrasse et un jardin privatif.\n\nLe bien se distingue par sa performance énergétique exceptionnelle pour un bâtiment ancien — DPE C à 156 kWh/m²/an, avec des émissions GES très faibles (6 kg CO₂/m²/an) — et l'absence totale d'amiante détectée lors du diagnostic.\n\nUne buanderie complète l'ensemble. Construction antérieure à 1949, dans une rue du village médiéval piétonnier, à 10 minutes à pied de la mer et à 15 minutes de Monaco en voiture. Un bien familial spacieux et sain, idéal comme résidence principale ou secondaire.",
+      en: "Multi-level village house in old Roquebrune-Cap-Martin, offering 96.60 m² and a generous layout rare in this area: three bedrooms including two with private en-suite, a separate dining room, an independent kitchen, a large living room at garden level, a terrace, and a private garden.\n\nThe property stands out for its exceptional energy performance for a period building — EPC C at 156 kWh/m²/year, with very low GHG emissions (6 kg CO₂/m²/year) — and the complete absence of asbestos detected during the survey.\n\nA utility room completes the offering. Pre-1949 construction in a pedestrian street of the medieval village, 10 minutes on foot from the sea and 15 minutes from Monaco by car. A spacious, healthy family home — ideal as a primary or secondary residence.",
+      nl: "Meerniveaus dorpswoning in oud Roquebrune-Cap-Martin, met 96,60 m² en een royale indeling die zeldzaam is in deze omgeving: drie slaapkamers waarvan twee met privé ensuite, een aparte eetkamer, een onafhankelijke keuken, een grote woonkamer op tuinniveau, een terras en een privétuin.\n\nHet pand onderscheidt zich door zijn uitzonderlijke energieprestatie voor een oud gebouw — EPC C met 156 kWh/m²/jaar en zeer lage broeikasgasemissies (6 kg CO₂/m²/jaar) — en de volledige afwezigheid van asbest bij het onderzoek.\n\nEen wasruimte completeert het geheel. Bouw vóór 1949, in een voetgangersstraat van het middeleeuwse dorp, 10 minuten te voet van de zee en 15 minuten van Monaco met de auto. Een ruime, gezonde gezinswoning — ideaal als hoofd- of vakantieverblijf."
+    }
+  }
+];
 // ===== I18N =====
 const I18N = {
   fr: {
