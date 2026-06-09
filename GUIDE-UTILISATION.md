@@ -214,6 +214,30 @@ Pour les remplacer :
 
 ---
 
+## 🖼️ Mettre l'image de fond du site (hero)
+
+Le grand fond qui reste **fixe derrière toute la page** utilise deux photos qui se succèdent en fondu lent. Elles s'appellent `hero1.jpg` et `hero2.jpg` et se placent dans le dossier `photos/`.
+
+### Étapes
+
+1. Prépare ta photo :
+   - **Format :** JPG (pas PNG — trop lourd)
+   - **Orientation :** paysage (horizontale obligatoire)
+   - **Taille :** au moins **1 920 px de large**
+   - **Poids :** moins de **1 Mo** (compresse sur [squoosh.app](https://squoosh.app) si besoin)
+
+2. Renomme ta photo **exactement** `hero1.jpg` (ou `hero2.jpg` pour la deuxième)
+
+3. Glisse-dépose le fichier dans le dossier `photos/` en **écrasant** l'ancien
+
+4. Redéploie le dossier `immo-site/` sur Netlify
+
+> 💡 **Conseil :** mets ta plus belle photo de vue mer en `hero1.jpg` — c'est elle qui s'affiche en premier au chargement du site.
+
+> 💡 Si tu ne veux **qu'une seule photo** de fond : utilise la même image pour `hero1.jpg` et `hero2.jpg`.
+
+---
+
 ## 🌍 Changer la langue par défaut
 
 Le site s'ouvre en français. Pour ouvrir en néerlandais :  
