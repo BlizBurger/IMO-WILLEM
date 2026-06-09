@@ -1769,6 +1769,56 @@
 const BIENS = [
   {
     id: 1,
+    type: "maison",
+    badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
+    badgeClass: "exclu",
+    prix: "630 000 €",
+    prixNum: 630000,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village", en: "Roquebrune-Cap-Martin — Village", nl: "Roquebrune-Cap-Martin — Dorp" },
+    adresseComplete: "Roquebrune-Cap-Martin, 06190",
+    lat: 43.764729, lng: 7.458946,
+    tags: {
+      fr: ["83 m² LC", "3 pièces + studio", "Vue mer", "Terrasse", "Meublé"],
+      en: ["83 m² LC", "3 rooms + studio", "Sea view", "Terrace", "Furnished"],
+      nl: ["83 m² LC", "3 kamers + studio", "Zeezicht", "Terras", "Gemeubileerd"]
+    },
+    photos: [
+      "photos/bien5_terrace.jpg",
+      "photos/bien5_terrace_2.jpg",
+      "photos/bien5_tv_room.jpg",
+      "photos/bien5_dining_room.jpg",
+      "photos/bien5_master_bedroom.jpg",
+      "photos/bien5_guest_bedroom.jpg",
+      "photos/bien5_guest_bedroom_north.jpg",
+      "photos/bien5_kitchen_1.jpg",
+      "photos/bien5_kitchen_2.jpg",
+      "photos/bien5_master_bathroom.jpg"
+    ],
+    video: null,
+    stats: {
+      "m²": 83,
+      fr: { "Pièces": "3 + studio", "Niveaux": 3, "Terrasse": "9,5 m²", "DPE": "E", "Chauffage": "Gaz individuel" },
+      en: { "Rooms": "3 + studio", "Levels": 3, "Terrace": "9.5 m²", "EPC": "E", "Heating": "Individual gas" },
+      nl: { "Kamers": "3 + studio", "Niveaus": 3, "Terras": "9,5 m²", "EPC": "E", "Verwarming": "Individueel gas" }
+    },
+    caracteristiques: {
+      fr: ["Rénovée par l'architecte Toni Cordero (Turin)", "Vendue meublée et équipée", "Meubles en iroko massif sur mesure", "Studio indépendant (18 m²) avec kitchenette", "Terrasse 9,5 m² vue mer protégée", "2 chambres avec salle d'eau en pierre chacune", "Douches à l'italienne en pierre", "Cuisine voûtée équipée", "Rocher apparent dans les pièces", "Chauffage central au gaz", "Internet haut débit", "Volets persiennés + voile solaire terrasse", "Rue piétonne calme, 2 min des parkings"],
+      en: ["Renovated by architect Toni Cordero (Turin)", "Sold furnished and equipped", "Custom solid iroko furniture", "Independent studio (18 m²) with kitchenette", "Protected 9.5 m² sea-view terrace", "2 bedrooms each with en-suite stone shower room", "Italian-style stone showers", "Vaulted equipped kitchen", "Exposed rock in rooms", "Central gas heating", "High-speed internet", "Shutters + custom terrace shade sail", "Quiet pedestrian street, 2 min from parking"],
+      nl: ["Gerenoveerd door architect Toni Cordero (Turijn)", "Verkocht gemeubileerd en uitgerust", "Maatwerk meubels in massief iroko", "Onafhankelijke studio (18 m²) met kitchenette", "Beschermd zeezichtterras van 9,5 m²", "2 slaapkamers elk met eigen stenen badkamer", "Italiaanse stenen inloopdouches", "Gewelfde uitgeruste keuken", "Zichtbare rots in de kamers", "Centrale gasverwarming", "Snel internet", "Luiken + maatwerk zonnezeil terras", "Rustige voetgangersstraat, 2 min van parking"]
+    },
+    distances: {
+      fr: { "Parkings village": "2 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "2 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "2 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
+    },
+    description: {
+      fr: "Maison de village d'exception à Roquebrune-Cap-Martin, rénovée par Toni Cordero (1937–2021), célèbre architecte turinois, et remarquablement entretenue depuis.\n\nVendue entièrement meublée et équipée — canapé, fauteuils, table, chaises, lits, vaisselle, draps, serviettes — avec une décoration soignée et de nombreux éléments réalisés sur mesure par des artisans turinois : tentures, coussins, rideaux, portes, meubles encastrés en iroko massif.\n\nAu cœur d'un village médiéval perché, la maison déploie 83 m² Loi Carrez + 20 m² supplémentaires sur trois niveaux, auxquels s'ajoute un studio indépendant au rez-de-chaussée. La vue sur la mer Méditerranée et Monaco est époustouflante depuis la terrasse de 9,5 m² parfaitement protégée et depuis le séjour sous haute hauteur sous plafond.\n\nOriginalité absolue : le rocher du village apparaît naturellement dans les chambres, les salles d'eau et la terrasse, créant un dialogue saisissant entre la pierre brute et les sols en béton blanc et les murs colorés — une atmosphère qui évoque les Baléares ou les Cyclades.\n\nRue piétonne calme et confidentielle, à l'abri du bruit et des flux touristiques. On dort fenêtres ouvertes en été. L'inertie naturelle des murs épais, la ventilation traversante et les protections solaires passives (volets persiennés, voile sur mesure) garantissent un confort exceptionnel même en plein été.",
+      en: "An exceptional village house in Roquebrune-Cap-Martin, renovated by Toni Cordero (1937–2021), the celebrated Turinese architect, and meticulously maintained ever since.\n\nSold fully furnished and equipped — sofa, armchairs, table, chairs, beds, crockery, linen, towels — with careful decoration and numerous bespoke elements crafted by Turinese artisans: wall hangings, cushions, curtains, doors, and built-in solid iroko furniture.\n\nAt the heart of a medieval hilltop village, the house spans 83 m² (Loi Carrez) + 20 m² additional over three levels, plus an independent studio at ground level. The view over the Mediterranean and Monaco is breathtaking from the perfectly sheltered 9.5 m² terrace and the double-height living room.\n\nA unique feature: the village rock appears naturally in the bedrooms, shower rooms and terrace, creating a striking dialogue between raw stone, white concrete floors and colourful walls — an atmosphere reminiscent of the Balearics or the Cyclades.\n\nQuiet, discreet pedestrian street away from noise and tourist traffic. Windows can be left open on summer nights. Natural thermal mass, cross ventilation and passive solar shading ensure exceptional comfort even in midsummer.",
+      nl: "Een uitzonderlijk dorpshuis in Roquebrune-Cap-Martin, gerenoveerd door Toni Cordero (1937–2021), de gevierde Turijns architect, en sindsdien uitmuntend onderhouden.\n\nVerkocht volledig gemeubileerd en uitgerust — bank, fauteuils, tafel, stoelen, bedden, servies, lakens, handdoeken — met zorgvuldige decoratie en talrijke op maat gemaakte elementen van Turijns ambachtslieden: wandkleden, kussens, gordijnen, deuren en ingebouwde meubels in massief iroko.\n\nHet huis beslaat 83 m² (Loi Carrez) + 20 m² extra op drie niveaus, plus een onafhankelijke studio op de begane grond. Het uitzicht op de Middellandse Zee en Monaco is adembenemend vanaf het beschermde terras van 9,5 m² en vanuit de woonkamer met hoge plafonds.\n\nUnieke eigenschap: de rots van het dorp is zichtbaar in de slaapkamers, badkamers en op het terras — een treffend contrast tussen ruwe steen, witte betonvloeren en gekleurde muren met een sfeer die doet denken aan de Balearen of de Cycladen.\n\nRustige, vertrouwelijke voetgangersstraat, weg van lawaai en toeristische drukte. Ramen kunnen in de zomer open blijven 's nachts. Natuurlijke thermische massa, doorstroomventilatie en passieve zonwering zorgen voor uitzonderlijk comfort."
+    }
+  },
+  {
+    id: 2,
     type: "appartement",
     badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
     badgeClass: "",
