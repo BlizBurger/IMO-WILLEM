@@ -139,6 +139,37 @@
       border-color: var(--terre);
     }
 
+    /* ===== FOND FIXE GLOBAL ===== */
+    /* Les slides sont FIXED derrière tout — ils ne bougent jamais */
+    .hero-slide {
+      position: fixed;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: scroll; /* inutile en fixed, mais propre */
+      opacity: 0;
+      transition: opacity 1.6s ease-in-out;
+      z-index: -2;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    /* Overlay sombre fixe lui aussi */
+    .hero-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,18,10,0.40) 0%,
+        rgba(10,18,10,0.20) 40%,
+        rgba(10,18,10,0.60) 100%
+      );
+      z-index: -1;
+      pointer-events: none;
+    }
+
     /* ===== HERO ===== */
     #hero {
       min-height: 100vh;
@@ -146,43 +177,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
-      background: #1a2e1a;
-    }
-
-    /* Photo slideshow layers */
-    .hero-slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      opacity: 0;
-      transition: opacity 1.6s ease-in-out;
-    }
-
-    /* iOS ne supporte pas background-attachment:fixed — on revient au scroll */
-    @supports (-webkit-touch-callout: none) {
-      .hero-slide {
-        background-attachment: scroll;
-      }
-    }
-
-    .hero-slide.active {
-      opacity: 1;
-    }
-
-    /* Dark gradient overlay for text legibility */
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to bottom,
-          rgba(10,18,10,0.35) 0%,
-          rgba(10,18,10,0.18) 40%,
-          rgba(10,18,10,0.55) 100%
-        );
-      z-index: 1;
+      background: transparent; /* laisse voir le fond fixe */
     }
 
     /* Subtle tile pattern on top of photo */
@@ -198,6 +193,18 @@
       height: 100%;
       opacity: 0.04;
     }
+
+    /* Toutes les sections ont un fond opaque pour cacher le slideshow derrière */
+    #biens, #carte, #contact {
+      position: relative;
+      z-index: 1;
+    }
+
+    #biens    { background: var(--blanc); }
+    #carte    { background: var(--sable); }
+    #contact  { background: white; }
+    .divider  { position: relative; z-index: 1; background: var(--sable); }
+    footer, .footer-legal-bar { position: relative; z-index: 1; }
 
     /* Slide indicators */
     .hero-dots {
@@ -1040,6 +1047,36 @@
       color: var(--texte-light);
     }
 
+    /* ===== BULLE WHATSAPP FLOTTANTE ===== */
+    #wa-bubble {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+
+    #wa-bubble:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+    }
+
+    #wa-bubble svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+    }
+
     /* ===== FOOTER ===== */
     footer {
       background: var(--texte);
@@ -1459,7 +1496,7 @@
             </svg>
           </div>
           <!-- XXX: Remplacer par le vrai numéro -->
-          <span>+33 4 93 XX XX XX</span>
+          <a href="tel:+33782468948" style="color:inherit">+33 7 82 46 89 48</a>
         </div>
 
         <div class="contact-item">
@@ -1469,7 +1506,7 @@
             </svg>
           </div>
           <!-- XXX: Remplacer par le vrai email -->
-          <span>contact@bonestroo-immo.fr</span>
+          <span>willem@bonestroo.fr</span>
         </div>
 
         <div class="contact-item">
@@ -1479,7 +1516,7 @@
             </svg>
           </div>
           <!-- XXX: Remplacer par la vraie adresse -->
-          <span>12 Promenade du Soleil, 06500 Menton</span>
+          <span>1 Avenue Raymond Poincaré, 06190 Roquebrune-Cap-Martin</span>
         </div>
       </div>
 
@@ -1528,9 +1565,7 @@
 <footer>
   <div class="footer-logo">Bonestroo <span>Immo</span></div>
   <div class="footer-info">
-    <!-- XXX: Remplacer par le vrai numéro de carte pro -->
-    <div data-i18n="footer_carte">Carte professionnelle N° XXXXX</div>
-    <div data-i18n="footer_mention">© 2025 SARL Bonestroo — Tous droits réservés</div>
+<div data-i18n="footer_mention">© 2025 SARL Bonestroo — Tous droits réservés</div>
   </div>
 </footer>
 
@@ -1558,36 +1593,20 @@
 
       <!-- ===== MENTIONS LÉGALES ===== -->
       <div class="legal-panel active" id="panel-mentions">
-        <div class="legal-alert">
-          Les champs marqués <span class="legal-placeholder">À COMPLÉTER</span> doivent être mis à jour avant la mise en ligne.
-        </div>
-
         <h4>Éditeur du site</h4>
         <p>
           <strong>Raison sociale :</strong> SARL Bonestroo<br>
           <strong>Forme juridique :</strong> Société à Responsabilité Limitée (SARL)<br>
-          <strong>Capital social :</strong> <span class="legal-placeholder">À COMPLÉTER</span> €<br>
-          <strong>Siège social :</strong> 12 Promenade du Soleil, 06500 Menton <span class="legal-placeholder">À COMPLÉTER</span><br>
-          <strong>SIRET :</strong> <span class="legal-placeholder">À COMPLÉTER</span><br>
-          <strong>RCS :</strong> Nice <span class="legal-placeholder">À COMPLÉTER</span><br>
-          <strong>N° TVA intracommunautaire :</strong> <span class="legal-placeholder">À COMPLÉTER</span><br>
-          <strong>Téléphone :</strong> +33 4 93 XX XX XX<br>
-          <strong>Email :</strong> contact@bonestroo-immo.fr
+          <strong>Capital social :</strong> 117 000 €<br>
+          <strong>Siège social :</strong> 1 Avenue Raymond Poincaré, 06190 Roquebrune-Cap-Martin, France<br>
+          <strong>RCS :</strong> Nice 438 721 409<br>
+          <strong>EUID :</strong> FR0605.438721409<br>
+          <strong>Téléphone :</strong> +33 7 82 46 89 48<br>
+          <strong>Email :</strong> willem@bonestroo.fr
         </p>
-
-        <h4>Activité réglementée — Loi Hoguet</h4>
-        <p>
-          Conformément à la loi n° 70-9 du 2 janvier 1970 (loi Hoguet) et à son décret d'application n° 72-678 du 20 juillet 1972 :
-        </p>
-        <ul>
-          <li><strong>Carte professionnelle :</strong> Transaction sur immeubles et fonds de commerce N° <span class="legal-placeholder">À COMPLÉTER</span>, délivrée par la CCI de <span class="legal-placeholder">Nice / Menton</span></li>
-          <li><strong>Garantie financière :</strong> <span class="legal-placeholder">Nom de l'organisme garant</span>, <span class="legal-placeholder">adresse</span> — Montant : <span class="legal-placeholder">montant</span> €</li>
-          <li><strong>Assurance RCP :</strong> <span class="legal-placeholder">Nom de l'assureur</span>, Police n° <span class="legal-placeholder">numéro</span></li>
-        </ul>
-        <p>SARL Bonestroo est habilitée à recevoir des fonds : <strong>Non</strong> / <span class="legal-placeholder">Oui — préciser le cadre</span>.</p>
 
         <h4>Directeur de la publication</h4>
-        <p><span class="legal-placeholder">Prénom Nom du gérant</span>, en qualité de Gérant de la SARL Bonestroo.</p>
+        <p><strong>Willem Bonestroo</strong>, en qualité de Gérant de la SARL Bonestroo.</p>
 
         <h4>Hébergement</h4>
         <p>
@@ -1615,8 +1634,8 @@
 
         <h4>Responsable du traitement</h4>
         <p>
-          SARL Bonestroo — 12 Promenade du Soleil, 06500 Menton<br>
-          Contact : contact@bonestroo-immo.fr
+          SARL Bonestroo — 1 Avenue Raymond Poincaré, 06190 Roquebrune-Cap-Martin<br>
+          Contact : willem@bonestroo.fr
         </p>
 
         <h4>Données collectées</h4>
@@ -1657,7 +1676,7 @@
           <li><strong>Droit à la portabilité</strong> de vos données</li>
         </ul>
         <p>
-          Pour exercer ces droits : <strong>contact@bonestroo-immo.fr</strong> en indiquant « Droits RGPD » en objet. Une réponse vous sera apportée dans un délai d'un mois.
+          Pour exercer ces droits : <strong>willem@bonestroo.fr</strong> en indiquant « Droits RGPD » en objet. Une réponse vous sera apportée dans un délai d'un mois.
         </p>
         <p>
           En cas de réclamation, vous pouvez saisir la <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) — <a href="https://www.cnil.fr" target="_blank" rel="noopener" style="color:var(--terre)">www.cnil.fr</a> — ou toute autorité de contrôle compétente dans votre pays de résidence.
@@ -1673,7 +1692,7 @@
       <div class="legal-panel" id="panel-cgu">
         <h4>Objet</h4>
         <p>
-          Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du site <strong>bonestroo-immo.fr</strong> (ci-après « le Site »), édité par la SARL Bonestroo. L'accès au Site implique l'acceptation pleine et entière des présentes CGU.
+          Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du site édité par la <strong>SARL Bonestroo</strong> (ci-après « le Site »). L'accès au Site implique l'acceptation pleine et entière des présentes CGU.
         </p>
 
         <h4>Accès au site</h4>
@@ -1735,6 +1754,13 @@
   </div>
 </div>
 
+<!-- ===== BULLE WHATSAPP ===== -->
+<a id="wa-bubble" href="https://wa.me/33782468948?text=Bonjour%2C%20je%20suis%20intéressé%20par%20un%20bien%20sur%20votre%20site." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+  </svg>
+</a>
+
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLcE=" crossorigin=""></script>
 
@@ -1743,110 +1769,91 @@
 const BIENS = [
   {
     id: 1,
-    type: "appartement",
-    badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
-    badgeClass: "",
-    prix: "485 000 €",
-    localisation: { fr: "Menton — Vieille Ville", en: "Menton — Old Town", nl: "Menton — Oude Stad" },
-    lat: 43.7754, lng: 7.5019,
+    type: "maison",
+    badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
+    badgeClass: "exclu",
+    prix: "630 000 €",
+    prixNum: 630000,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village", en: "Roquebrune-Cap-Martin — Village", nl: "Roquebrune-Cap-Martin — Dorp" },
+    adresseComplete: "Roquebrune-Cap-Martin, 06190",
+    lat: 43.764729, lng: 7.458946,
     tags: {
-      fr: ["92 m²", "3 pièces", "Vue mer", "Terrasse"],
-      en: ["92 m²", "3 rooms", "Sea view", "Terrace"],
-      nl: ["92 m²", "3 kamers", "Zeezicht", "Terras"]
+      fr: ["83 m² LC", "3 pièces + studio", "Vue mer", "Terrasse", "Meublé"],
+      en: ["83 m² LC", "3 rooms + studio", "Sea view", "Terrace", "Furnished"],
+      nl: ["83 m² LC", "3 kamers + studio", "Zeezicht", "Terras", "Gemeubileerd"]
     },
-    photos: [],
+    photos: [
+      "photos/bien5_terrace.jpg",
+      "photos/bien5_terrace_2.jpg",
+      "photos/bien5_tv_room.jpg",
+      "photos/bien5_dining_room.jpg",
+      "photos/bien5_master_bedroom.jpg",
+      "photos/bien5_guest_bedroom.jpg",
+      "photos/bien5_guest_bedroom_north.jpg",
+      "photos/bien5_kitchen_1.jpg",
+      "photos/bien5_kitchen_2.jpg",
+      "photos/bien5_master_bathroom.jpg"
+    ],
     video: null,
     stats: {
-      "m²": 92,
-      fr: { "Pièces": 3, "Étage": 4, "DPE": "B" },
-      en: { "Rooms": 3, "Floor": 4, "EPC": "B" },
-      nl: { "Kamers": 3, "Verdieping": 4, "EPC": "B" }
+      "m²": 83,
+      fr: { "Pièces": "3 + studio", "Niveaux": 3, "Terrasse": "9,5 m²", "DPE": "E", "Chauffage": "Gaz individuel" },
+      en: { "Rooms": "3 + studio", "Levels": 3, "Terrace": "9.5 m²", "EPC": "E", "Heating": "Individual gas" },
+      nl: { "Kamers": "3 + studio", "Niveaus": 3, "Terras": "9,5 m²", "EPC": "E", "Verwarming": "Individueel gas" }
+    },
+    caracteristiques: {
+      fr: ["Rénovée par l'architecte Toni Cordero (Turin)", "Vendue meublée et équipée", "Meubles en iroko massif sur mesure", "Studio indépendant (18 m²) avec kitchenette", "Terrasse 9,5 m² vue mer protégée", "2 chambres avec salle d'eau en pierre chacune", "Douches à l'italienne en pierre", "Cuisine voûtée équipée", "Rocher apparent dans les pièces", "Chauffage central au gaz", "Internet haut débit", "Volets persiennés + voile solaire terrasse", "Rue piétonne calme, 2 min des parkings"],
+      en: ["Renovated by architect Toni Cordero (Turin)", "Sold furnished and equipped", "Custom solid iroko furniture", "Independent studio (18 m²) with kitchenette", "Protected 9.5 m² sea-view terrace", "2 bedrooms each with en-suite stone shower room", "Italian-style stone showers", "Vaulted equipped kitchen", "Exposed rock in rooms", "Central gas heating", "High-speed internet", "Shutters + custom terrace shade sail", "Quiet pedestrian street, 2 min from parking"],
+      nl: ["Gerenoveerd door architect Toni Cordero (Turijn)", "Verkocht gemeubileerd en uitgerust", "Maatwerk meubels in massief iroko", "Onafhankelijke studio (18 m²) met kitchenette", "Beschermd zeezichtterras van 9,5 m²", "2 slaapkamers elk met eigen stenen badkamer", "Italiaanse stenen inloopdouches", "Gewelfde uitgeruste keuken", "Zichtbare rots in de kamers", "Centrale gasverwarming", "Snel internet", "Luiken + maatwerk zonnezeil terras", "Rustige voetgangersstraat, 2 min van parking"]
+    },
+    distances: {
+      fr: { "Parkings village": "2 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "2 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "2 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
     },
     description: {
-      fr: "Magnifique appartement au cœur de la vieille ville de Menton, avec vue imprenable sur la mer et les toits colorés. Lumineux et rénové avec soin, il allie le charme de l'ancien et le confort moderne. Grande terrasse orientée sud, cuisine équipée, double vitrage.",
-      en: "Magnificent apartment in the heart of Menton's old town, with stunning sea views and colourful rooftops. Bright and carefully renovated, it combines historic charm with modern comfort. Large south-facing terrace, fitted kitchen, double glazing.",
-      nl: "Prachtig appartement in het hart van de oude stad van Menton, met adembenemend uitzicht op de zee en de kleurrijke daken. Licht en zorgvuldig gerenoveerd, combineert het de charme van vroeger met modern comfort. Groot terras op het zuiden, uitgeruste keuken, dubbele beglazing."
+      fr: "Maison de village d'exception à Roquebrune-Cap-Martin, rénovée par Toni Cordero (1937–2021), célèbre architecte turinois, et remarquablement entretenue depuis.\n\nVendue entièrement meublée et équipée — canapé, fauteuils, table, chaises, lits, vaisselle, draps, serviettes — avec une décoration soignée et de nombreux éléments réalisés sur mesure par des artisans turinois : tentures, coussins, rideaux, portes, meubles encastrés en iroko massif.\n\nAu cœur d'un village médiéval perché, la maison déploie 83 m² Loi Carrez + 20 m² supplémentaires sur deux niveaux, auxquels s'ajoute un studio indépendant de 18 m² au rez-de-chaussée. La vue sur la mer Méditerranée et Monaco est époustouflante depuis la terrasse de 9,5 m² parfaitement protégée et depuis le séjour sous haute hauteur sous plafond.\n\nOriginalité absolue : le rocher du village apparaît naturellement dans les chambres, les salles d'eau et la terrasse, créant un dialogue saisissant entre la pierre brute et les sols en béton blanc et les murs colorés — une atmosphère qui évoque les Baléares ou les Cyclades.\n\nRue piétonne calme et confidentielle, à l'abri du bruit et des flux touristiques. On dort fenêtres ouvertes en été. L'inertie naturelle des murs épais, la ventilation traversante et les protections solaires passives (volets persiennés, voile sur mesure) garantissent un confort exceptionnel même en plein été.",
+      en: "An exceptional village house in Roquebrune-Cap-Martin, renovated by Toni Cordero (1937–2021), the celebrated Turinese architect, and meticulously maintained ever since.\n\nSold fully furnished and equipped — sofa, armchairs, table, chairs, beds, crockery, linen, towels — with careful decoration and numerous bespoke elements crafted by Turinese artisans: wall hangings, cushions, curtains, doors, and built-in solid iroko furniture.\n\nAt the heart of a medieval hilltop village, the house spans 83 m² (Loi Carrez) + 20 m² additional over two levels, plus an independent 18 m² studio at ground level. The view over the Mediterranean and Monaco is breathtaking from the perfectly sheltered 9.5 m² terrace and the double-height living room.\n\nA unique feature: the village rock appears naturally in the bedrooms, shower rooms and terrace, creating a striking dialogue between raw stone, white concrete floors and colourful walls — an atmosphere reminiscent of the Balearics or the Cyclades.\n\nQuiet, discreet pedestrian street away from noise and tourist traffic. Windows can be left open on summer nights. Natural thermal mass, cross ventilation and passive solar shading ensure exceptional comfort even in midsummer.",
+      nl: "Een uitzonderlijk dorpshuis in Roquebrune-Cap-Martin, gerenoveerd door Toni Cordero (1937–2021), de gevierde Turijns architect, en sindsdien uitmuntend onderhouden.\n\nVerkocht volledig gemeubileerd en uitgerust — bank, fauteuils, tafel, stoelen, bedden, servies, lakens, handdoeken — met zorgvuldige decoratie en talrijke op maat gemaakte elementen van Turijns ambachtslieden: wandkleden, kussens, gordijnen, deuren en ingebouwde meubels in massief iroko.\n\nHet huis beslaat 83 m² (Loi Carrez) + 20 m² extra op twee niveaus, plus een onafhankelijke studio van 18 m² op de begane grond. Het uitzicht op de Middellandse Zee en Monaco is adembenemend vanaf het beschermde terras van 9,5 m² en vanuit de woonkamer met hoge plafonds.\n\nUnieke eigenschap: de rots van het dorp is zichtbaar in de slaapkamers, badkamers en op het terras — een treffend contrast tussen ruwe steen, witte betonvloeren en gekleurde muren met een sfeer die doet denken aan de Balearen of de Cycladen.\n\nRustige, vertrouwelijke voetgangersstraat, weg van lawaai en toeristische drukte. Ramen kunnen in de zomer open blijven 's nachts. Natuurlijke thermische massa, doorstroomventilatie en passieve zonwering zorgen voor uitzonderlijk comfort."
     }
   },
   {
     id: 2,
-    type: "maison",
-    badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
-    badgeClass: "exclu",
-    prix: "1 250 000 €",
-    localisation: { fr: "Roquebrune-Cap-Martin", en: "Roquebrune-Cap-Martin", nl: "Roquebrune-Cap-Martin" },
-    lat: 43.7622, lng: 7.4716,
-    tags: {
-      fr: ["220 m²", "5 pièces", "Vue mer", "Jardin", "Piscine"],
-      en: ["220 m²", "5 rooms", "Sea view", "Garden", "Pool"],
-      nl: ["220 m²", "5 kamers", "Zeezicht", "Tuin", "Zwembad"]
-    },
-    photos: [],
-    video: null,
-    stats: {
-      "m²": 220,
-      fr: { "Pièces": 5, "Terrain": "800 m²", "DPE": "C" },
-      en: { "Rooms": 5, "Land": "800 m²", "EPC": "C" },
-      nl: { "Kamers": 5, "Grond": "800 m²", "EPC": "C" }
-    },
-    description: {
-      fr: "Villa provençale d'exception sur les hauteurs de Roquebrune-Cap-Martin. Vue panoramique 180° sur la mer et Monaco. Jardin méditerranéen avec piscine à débordement, oliviers centenaires et parfum de lavande. Intérieurs raffinés, matériaux nobles.",
-      en: "Exceptional Provençal villa on the heights of Roquebrune-Cap-Martin. 180° panoramic sea and Monaco views. Mediterranean garden with infinity pool, century-old olive trees and lavender fragrance. Refined interiors, premium materials.",
-      nl: "Uitzonderlijke Provençaalse villa op de hoogten van Roquebrune-Cap-Martin. 180° panoramisch uitzicht op zee en Monaco. Mediterrane tuin met overloopzwembad, eeuwenoude olijfbomen en lavendel. Verfijnde interieurs, hoogwaardige materialen."
-    }
-  },
-  {
-    id: 3,
     type: "appartement",
-    badge: { fr: "Prix baissé", en: "Price drop", nl: "Prijs verlaagd" },
+    badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
     badgeClass: "",
-    prix: "320 000 €",
-    localisation: { fr: "Menton — Garavan", en: "Menton — Garavan", nl: "Menton — Garavan" },
-    lat: 43.7791, lng: 7.5148,
+    prix: "Prix sur demande",
+    prixNum: 0,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
+    adresseComplete: "10 rue Pie, 06190 Roquebrune-Cap-Martin",
+    lat: 43.764729, lng: 7.458946,
     tags: {
-      fr: ["58 m²", "2 pièces", "Balcon", "Cave"],
-      en: ["58 m²", "2 rooms", "Balcony", "Cellar"],
-      nl: ["58 m²", "2 kamers", "Balkon", "Kelder"]
+      fr: ["83 m² LC", "3 chambres + studio", "Terrasse 9,5 m²", "Village médiéval", "Gaz individuel"],
+      en: ["83 m² LC", "3 beds + studio", "Terrace 9.5 m²", "Medieval village", "Individual gas"],
+      nl: ["83 m² LC", "3 slaapk. + studio", "Terras 9,5 m²", "Middeleeuws dorp", "Individueel gas"]
     },
     photos: [],
     video: null,
     stats: {
-      "m²": 58,
-      fr: { "Pièces": 2, "Étage": 2, "DPE": "D" },
-      en: { "Rooms": 2, "Floor": 2, "EPC": "D" },
-      nl: { "Kamers": 2, "Verdieping": 2, "EPC": "D" }
+      "m²": 83,
+      fr: { "Pièces": "3 + studio", "Niveaux": 3, "Terrasse": "9,5 m²", "DPE": "E", "Chauffage": "Gaz individuel" },
+      en: { "Rooms": "3 + studio", "Levels": 3, "Terrace": "9.5 m²", "EPC": "E", "Heating": "Individual gas" },
+      nl: { "Kamers": "3 + studio", "Niveaus": 3, "Terras": "9,5 m²", "EPC": "E", "Verwarming": "Individueel gas" }
+    },
+    caracteristiques: {
+      fr: ["Studio indépendant au rez-de-chaussée", "Terrasse 9,5 m² avec vue sur les toits", "Chaudière condensation gaz récente (2019)", "2 salles d'eau avec WC", "Rangements intégrés", "Rue piétonne calme", "Maison de village ancienne (1800)", "3 niveaux"],
+      en: ["Self-contained ground-floor studio", "9.5 m² terrace with rooftop views", "Recent condensing gas boiler (2019)", "2 shower rooms with WC", "Built-in storage", "Quiet pedestrian street", "Historic village house (1800)", "3 levels"],
+      nl: ["Onafhankelijke studio op begane grond", "Terras 9,5 m² met uitzicht over daken", "Recente condenserende gasketel (2019)", "2 doucheruimtes met WC", "Ingebouwde opbergruimte", "Rustige voetgangersstraat", "Historisch dorpshuis (1800)", "3 niveaus"]
+    },
+    distances: {
+      fr: { "Parkings village": "2 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "2 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "2 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
     },
     description: {
-      fr: "Charmant appartement dans le quartier résidentiel de Garavan, à deux pas de la frontière italienne. Balcon fleuri avec vue sur les jardins et la montagne. Idéal comme résidence principale ou investissement locatif.",
-      en: "Charming apartment in the residential Garavan quarter, a stone's throw from the Italian border. Flower-decked balcony with garden and mountain views. Ideal as a primary residence or rental investment.",
-      nl: "Charmant appartement in de residentiële wijk Garavan, op een steenworp van de Italiaanse grens. Bloemrijk balkon met uitzicht op de tuinen en de bergen. Ideaal als hoofdverblijf of huurinvestering."
-    }
-  },
-  {
-    id: 4,
-    type: "maison",
-    badge: { fr: "Coup de cœur", en: "Staff pick", nl: "Aanrader" },
-    badgeClass: "",
-    prix: "780 000 €",
-    localisation: { fr: "Cap d'Ail", en: "Cap d'Ail", nl: "Cap d'Ail" },
-    lat: 43.7263, lng: 7.4000,
-    tags: {
-      fr: ["145 m²", "4 pièces", "Vue mer", "Terrasse", "Parking"],
-      en: ["145 m²", "4 rooms", "Sea view", "Terrace", "Parking"],
-      nl: ["145 m²", "4 kamers", "Zeezicht", "Terras", "Parkeerplaats"]
-    },
-    photos: [],
-    video: null,
-    stats: {
-      "m²": 145,
-      fr: { "Pièces": 4, "Terrain": "300 m²", "DPE": "B" },
-      en: { "Rooms": 4, "Land": "300 m²", "EPC": "B" },
-      nl: { "Kamers": 4, "Grond": "300 m²", "EPC": "B" }
-    },
-    description: {
-      fr: "Maison contemporaine à Cap d'Ail avec vue mer époustouflante sur Monaco et la Méditerranée. Architecture moderne, grandes baies vitrées, terrasses spacieuses. Quartier calme, accès direct à la plage à pied.",
-      en: "Contemporary house at Cap d'Ail with breathtaking sea views over Monaco and the Mediterranean. Modern architecture, large bay windows, spacious terraces. Quiet neighbourhood, direct walk to the beach.",
-      nl: "Eigentijds huis in Cap d'Ail met adembenemend zeezicht op Monaco en de Middellandse Zee. Moderne architectuur, grote erkers, ruime terrassen. Rustige buurt, rechtstreeks te voet naar het strand."
+      fr: "Au cœur du village médiéval de Roquebrune-Cap-Martin, cet appartement de caractère sur trois niveaux offre 83 m² loi Carrez et une terrasse de 9,5 m² avec vue sur les toits du village. Organisé autour d'une entrée lumineuse, le logement dispose de deux chambres principales, d'une chambre enfant, d'un séjour en étage supérieur et d'un studio indépendant en rez-de-chaussée — idéal comme bureau ou espace invités.\n\nChaudière à condensation gaz récente (2019), double salle d'eau, rangements intégrés. Rue piétonne calme et confidentielle, à l'abri du bruit touristique. Commerces, restaurants et panoramas méditerranéens à deux pas.",
+      en: "In the heart of Roquebrune-Cap-Martin's medieval village, this characterful apartment spread over three levels offers 83 m² (Carrez) and a 9.5 m² terrace overlooking the village rooftops. The layout includes two master bedrooms, a child's bedroom, an upper-floor living room, and a self-contained studio on the ground floor — perfect as a home office or guest suite.\n\nRecent condensing gas boiler (2019), two shower rooms, built-in storage. Quiet, discreet pedestrian street away from tourist noise. Shops, restaurants and Mediterranean panoramas just steps away.",
+      nl: "In het hart van het middeleeuwse dorp Roquebrune-Cap-Martin biedt dit karaktervolle appartement op drie niveaus 83 m² (Carrez) en een terras van 9,5 m² met uitzicht over de daken. De indeling omvat twee slaapkamers, een kinderkamer, een woonkamer op de bovenste verdieping en een onafhankelijke studio op de begane grond — ideaal als thuiskantoor of gastensuite.\n\nRecente condenserende gasketel (2019), twee doucheruimtes, ingebouwde opbergruimte. Rustige, vertrouwelijke voetgangersstraat. Winkels, restaurants en Mediterraans panorama op wandelafstand."
     }
   }
 ];
@@ -2209,15 +2216,15 @@ function openModal(id) {
     <div class="modal-desc">${bien.description[lang]}</div>
     ${videoHtml}
     <div class="modal-actions">
-      <button class="btn-appel" onclick="window.location.href='tel:+33493XXXXXX'">
+      <button class="btn-appel" onclick="window.location.href='tel:+33782468948'">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10.1a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         ${I18N[lang].modal_appel}
       </button>
-      <button class="btn-whatsapp" onclick="window.open('https://wa.me/33493XXXXXX?text=Bonjour%2C%20je%20suis%20intéressé%20par%20le%20bien%20à%20${encodeURIComponent(bien.localisation[lang])}','_blank')">
+      <button class="btn-whatsapp" onclick="window.open('https://wa.me/33782468948?text=Bonjour%2C%20je%20suis%20intéressé%20par%20le%20bien%20à%20${encodeURIComponent(bien.localisation[lang])}','_blank')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
         WhatsApp
       </button>
-      <button class="btn-email" onclick="window.location.href='mailto:contact@bonestroo-immo.fr?subject=Intérêt%20pour%20${encodeURIComponent(bien.localisation[lang])}'">
+      <button class="btn-email" onclick="window.location.href='mailto:willem@bonestroo.fr?subject=Intérêt%20pour%20${encodeURIComponent(bien.localisation[lang])}'">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         ${I18N[lang].modal_email}
       </button>

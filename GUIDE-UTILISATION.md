@@ -50,91 +50,99 @@ Chaque fois que tu modifies `index.html` ou ajoutes des photos :
 
 ---
 
-## 🗺️ Comment fonctionne la carte du site
+## 🏠 Ajouter un nouveau bien — Template complète
 
-La carte (section "Les biens sur la carte") s'affiche automatiquement à partir des coordonnées GPS que tu mets dans chaque bien.
+Ouvre `index.html` avec VS Code.  
+Fais **Ctrl+F** et cherche `const BIENS = [`.  
+Trouve la ligne `];` qui ferme le tableau. Colle le bloc ci-dessous **juste avant ce `];`**, en ajoutant une virgule `,` après le bien précédent.
 
-**Chaque bien a deux lignes dans le fichier :**
-```
-lat: 43.7754, lng: 7.5019,
-```
-C'est la latitude et la longitude. La carte place un marqueur à cet endroit avec le prix du bien. Si on clique sur le marqueur, la fiche du bien s'ouvre.
-
-### Trouver les coordonnées d'une adresse en 4 clics
-
-1. Va sur **Google Maps** → [maps.google.com](https://maps.google.com)
-2. Cherche l'adresse du bien dans la barre de recherche
-3. **Clic droit** sur le point exact sur la carte (pas sur la punaise, sur la rue/bâtiment)
-4. Les coordonnées apparaissent tout en haut du menu : ex. **`43.7754, 7.5019`**
-5. Clique dessus → elles sont copiées dans le presse-papier
-6. Dans `index.html` : colle le premier chiffre après `lat:` et le deuxième après `lng:`
-
-```
-lat: 43.7754, lng: 7.5019,
-```
-
-> ⚠️ Attention : le premier chiffre = lat, le deuxième = lng. Ne pas les inverser.
-
----
-
-## 🏠 Ajouter un bien sur le site
-
-Ouvre `index.html` avec VS Code. Fais **Ctrl+F** et cherche `const BIENS = [`.
-
-Tu vois une liste de biens entre `[` et `]`. Chaque bien ressemble à ça :
+### ✂️ TEMPLATE À COPIER-COLLER (maison ou appartement)
 
 ```js
-{
-  id: 1,
-  type: "appartement",
-  badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
-  badgeClass: "",
-  prix: "485 000 €",
-  localisation: { fr: "Menton — Vieille Ville", en: "Menton — Old Town", nl: "Menton — Oude Stad" },
-  lat: 43.7754, lng: 7.5019,
-  tags: {
-    fr: ["92 m²", "3 pièces", "Vue mer", "Terrasse"],
-    en: ["92 m²", "3 rooms", "Sea view", "Terrace"],
-    nl: ["92 m²", "3 kamers", "Zeezicht", "Terras"]
+  {
+    id: 2,                          // ← numéro suivant (2, 3, 4...)
+    type: "maison",                 // ← "maison" ou "appartement"
+    badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
+    // Autres valeurs de badge : "Exclusivité"/"Exclusive"/"Exclusief"
+    //                           "Prix baissé"/"Price drop"/"Prijs verlaagd"
+    //                           "Coup de cœur"/"Staff pick"/"Aanrader"
+    badgeClass: "",                 // ← "" = badge terre cuite  |  "exclu" = badge bleu
+    prix: "000 000 €",              // ← prix affiché sur la carte et la fiche
+    prixNum: 000000,                // ← même prix en chiffres (pour le filtre budget)
+    localisation: {
+      fr: "Ville — Quartier",
+      en: "City — District",
+      nl: "Stad — Wijk"
+    },
+    adresseComplete: "N° Rue, Code Ville",   // ← adresse complète pour Google Maps
+    lat: 43.0000, lng: 7.0000,     // ← coordonnées GPS (voir section Carte ci-dessous)
+    tags: {                        // ← 4 à 5 tags courts affichés sous le prix
+      fr: ["XX m²", "X pièces", "Vue mer", "Terrasse"],
+      en: ["XX m²", "X rooms", "Sea view", "Terrace"],
+      nl: ["XX m²", "X kamers", "Zeezicht", "Terras"]
+    },
+    photos: [                      // ← chemins des photos (mettre la plus belle en 1er)
+      "photos/bien2_photo1.jpg",
+      "photos/bien2_photo2.jpg",
+      "photos/bien2_photo3.jpg"
+    ],
+    video: null,                   // ← null si pas de vidéo  |  "videos/bien2.mp4" si vidéo
+    stats: {
+      "m²": 00,                    // ← surface principale (loi Carrez)
+      fr: { "Pièces": 0, "Étage": 0, "DPE": "C", "Chauffage": "Gaz central" },
+      en: { "Rooms": 0, "Floor": 0, "EPC": "C", "Heating": "Central gas" },
+      nl: { "Kamers": 0, "Verdieping": 0, "EPC": "C", "Verwarming": "Centraal gas" }
+      // Pour une maison avec terrain, remplace "Étage"/"Floor"/"Verdieping"
+      //   par "Terrain"/"Land"/"Grond" avec valeur "XXX m²"
+    },
+    caracteristiques: {            // ← liste des équipements et points forts
+      fr: ["Terrasse 9 m²", "Vue mer", "Cave", "Parking", "Cuisine équipée"],
+      en: ["Terrace 9 m²", "Sea view", "Cellar", "Parking", "Fitted kitchen"],
+      nl: ["Terras 9 m²", "Zeezicht", "Kelder", "Parkeerplaats", "Ingerichte keuken"]
+    },
+    distances: {                   // ← distances utiles depuis le bien
+      fr: { "Plage": "5 min à pied", "Centre-ville": "3 min", "Gare": "10 min" },
+      en: { "Beach": "5 min walk", "City center": "3 min", "Station": "10 min" },
+      nl: { "Strand": "5 min lopen", "Centrum": "3 min", "Station": "10 min" }
+    },
+    description: {                 // ← texte long de présentation (2-3 paragraphes)
+      fr: "Description complète en français...",
+      en: "Full description in English...",
+      nl: "Volledige beschrijving in het Nederlands..."
+    }
   },
-  photos: ["photos/bien1_a.jpg", "photos/bien1_b.jpg"],
-  video: null,
-  stats: {
-    "m²": 92,
-    fr: { "Pièces": 3, "Étage": 4, "DPE": "B" },
-    en: { "Rooms": 3, "Floor": 4, "EPC": "B" },
-    nl: { "Kamers": 3, "Verdieping": 4, "EPC": "B" }
-  },
-  description: {
-    fr: "Magnifique appartement...",
-    en: "Magnificent apartment...",
-    nl: "Prachtig appartement..."
-  }
-},
 ```
 
-### Étape par étape pour ajouter un bien
-
-**1. Copie un bloc entier** (de `{` jusqu'au `},` à la fin)
-
-**2. Colle-le juste après le dernier bien** (avant le `]` final)
-
-**3. Modifie chaque champ :**
+### Tableau des champs
 
 | Champ | Ce qu'il faut mettre | Exemple |
 |---|---|---|
-| `id` | Numéro suivant | `5` |
+| `id` | Numéro suivant (pas de doublon !) | `2` |
 | `type` | `"appartement"` ou `"maison"` | `"maison"` |
-| `badge` | Étiquette colorée sur la photo | `"Nouveau"` / `"New"` / `"Nieuw"` |
-| `badgeClass` | `""` = rouge terre cuite, `"exclu"` = bleu | `"exclu"` |
-| `prix` | Prix affiché | `"750 000 €"` |
-| `localisation` | Ville et quartier (en 3 langues) | voir exemple |
-| `lat` / `lng` | Coordonnées GPS (voir section carte) | `43.7754` |
-| `tags` | Caractéristiques courtes (en 3 langues) | `["145 m²", "4 pièces"]` |
-| `photos` | Chemins des photos (voir section photos) | `["photos/bien5_a.jpg"]` |
-| `video` | Chemin vidéo ou `null` | `"videos/bien5.mp4"` ou `null` |
-| `stats` | Surface + détails | voir exemple |
-| `description` | Texte de présentation (en 3 langues) | paragraphe complet |
+| `badge` | Étiquette colorée sur la photo | `"Nouveau"` |
+| `badgeClass` | `""` = rouge, `"exclu"` = bleu | `"exclu"` |
+| `prix` | Prix affiché (avec €) | `"630 000 €"` |
+| `prixNum` | Même prix sans espace ni € | `630000` |
+| `localisation` | Ville et quartier (3 langues) | `"Roquebrune — Village"` |
+| `lat` / `lng` | Coordonnées GPS | `43.7700` / `7.4650` |
+| `tags` | 4–5 mots-clés courts (3 langues) | `["83 m²", "Vue mer"]` |
+| `photos` | Chemins depuis le dossier `photos/` | `"photos/bien2_terrasse.jpg"` |
+| `video` | `null` ou chemin `.mp4` | `"videos/bien2.mp4"` |
+| `stats["m²"]` | Surface Loi Carrez | `83` |
+| `DPE` / `EPC` | Lettre A à G | `"C"` |
+
+---
+
+## 🗺️ Trouver les coordonnées GPS d'un bien
+
+1. Va sur **Google Maps** → [maps.google.com](https://maps.google.com)
+2. Cherche l'adresse du bien
+3. **Clic droit** sur le point exact sur la carte
+4. Les coordonnées s'affichent tout en haut du menu : ex. `43.7700, 7.4650`
+5. Clique dessus → elles sont copiées
+6. Dans le code : premier chiffre → `lat:`, deuxième → `lng:`
+
+> ⚠️ Ne pas inverser lat et lng !
 
 ---
 
@@ -142,55 +150,39 @@ Tu vois une liste de biens entre `[` et `]`. Chaque bien ressemble à ça :
 
 ### Préparer les photos
 
-- **Format :** JPG ou WEBP (pas PNG — trop lourd)
-- **Taille :** 1200px de large minimum, idéalement 1600px
-- **Orientation :** paysage (horizontale) — pas portrait
-- **Poids :** moins de 500 Ko par photo (compresse sur [squoosh.app](https://squoosh.app) si besoin)
+- **Format :** JPG ou WEBP (évite PNG — trop lourd)
+- **Taille :** 1 200 px de large minimum
+- **Orientation :** paysage (horizontale)
+- **Poids :** moins de 500 Ko (compresse sur [squoosh.app](https://squoosh.app))
 
 ### Nommer et placer les photos
-
-Nomme tes photos de façon claire et place-les dans le dossier `photos/` :
 
 ```
 immo-site/
 └── photos/
-    ├── hero1.jpg         ← fond du site (vue Roquebrune)
-    ├── hero2.jpg         ← fond du site (vue Menton)
-    ├── bien1_salon.jpg
-    ├── bien1_terrasse.jpg
-    ├── bien1_chambre.jpg
-    ├── bien2_facade.jpg
-    └── ...
+    ├── hero1.jpg              ← image de fond du site (à remplacer)
+    ├── hero2.jpg              ← image de fond du site (à remplacer)
+    ├── bien1_terrace.jpg      ← biens existants
+    ├── bien2_facade.jpg       ← nouveau bien
+    └── bien2_salon.jpg
 ```
 
-> ⚠️ Pas d'espaces, pas d'accents dans les noms de fichiers !  
-> ✅ `bien3_vue-mer.jpg`  
-> ❌ `bien 3 vue mer.jpg`  
-> ❌ `bien3_vué-mér.jpg`
-
-### Lier les photos au bien dans le code
-
-Dans le JSON du bien, remplace `photos: []` par :
-
-```js
-photos: ["photos/bien1_salon.jpg", "photos/bien1_terrasse.jpg", "photos/bien1_chambre.jpg"],
-```
-
-Les photos s'affichent dans la galerie du modal avec navigation gauche/droite.
+> ✅ Noms sans espaces, sans accents : `bien2_vue-mer.jpg`  
+> ❌ Jamais : `bien 2 vue mer.jpg` ou `bien2_vué.jpg`
 
 ---
 
 ## 🗑️ Supprimer un bien
 
 Dans `index.html`, cherche `id: X` (X = le numéro du bien).  
-Supprime tout le bloc : depuis `{` jusqu'au `},` (inclus la virgule finale).  
+Supprime tout le bloc depuis `{` jusqu'au `},` (virgule finale incluse).  
 Sauvegarde → redéploie sur Netlify.
 
 ---
 
 ## ✏️ Modifier un bien existant
 
-Ouvre `index.html`, cherche le texte que tu veux modifier (ex: le prix), modifie-le, sauvegarde, redéploie.
+Ouvre `index.html`, cherche le texte à modifier (ex: le prix), modifie, sauvegarde, redéploie.
 
 **Astuce VS Code :** Ctrl+H = chercher et remplacer dans tout le fichier.
 
@@ -198,79 +190,92 @@ Ouvre `index.html`, cherche le texte que tu veux modifier (ex: le prix), modifie
 
 ## 🎬 Ajouter une vidéo à un bien
 
-Les clients envoient souvent des `.mov` (iPhone) → **il faut convertir en `.mp4` d'abord.**
+Les fichiers iPhone sont en `.mov` → **convertir en `.mp4` d'abord.**
 
-**Convertir .mov en .mp4 gratuitement :**
-- **Mac :** QuickTime → Fichier → Exporter → "Pour iPhone" → enregistre
+- **Mac :** QuickTime → Fichier → Exporter → "Pour iPhone"
 - **En ligne :** [cloudconvert.com](https://cloudconvert.com) → MOV → MP4
 
 Ensuite :
-1. Place le fichier `.mp4` dans le dossier `videos/`
-2. Dans le JSON du bien, remplace `video: null` par :
-```js
-video: "videos/bien1.mp4",
-```
+1. Place le `.mp4` dans `videos/`
+2. Dans le bien : remplace `video: null` par `video: "videos/bien2.mp4",`
 
 ---
 
-## 🔤 Modifier les textes de l'agence
+## 🖼️ Changer les images de fond (hero)
 
-Fais **Ctrl+H** dans VS Code pour chercher et remplacer :
+Le fond qui reste fixe derrière le site utilise deux photos qui se succèdent en fondu.  
+Elles s'appellent `hero1.jpg` et `hero2.jpg` et se trouvent dans le dossier `photos/`.
 
-| Ce que tu cherches | Ce que tu mets |
-|---|---|
-| `+33 4 93 XX XX XX` | Ton vrai numéro |
-| `contact@bonestroo-immo.fr` | Ton vrai email |
-| `12 Promenade du Soleil, 06500 Menton` | Ta vraie adresse |
-| `N° XXXXX` | Ton numéro de carte pro |
+Pour les remplacer :
+1. Prépare ta photo (paysage, au moins 1 920 px de large, moins de 1 Mo)
+2. Nomme-la `hero1.jpg` (ou `hero2.jpg`)
+3. Glisse-dépose dans `photos/` en écrasant l'ancienne
+4. Redéploie sur Netlify
+
+---
+
+## 🖼️ Mettre l'image de fond du site (hero)
+
+Le grand fond qui reste **fixe derrière toute la page** utilise deux photos qui se succèdent en fondu lent. Elles s'appellent `hero1.jpg` et `hero2.jpg` et se placent dans le dossier `photos/`.
+
+### Étapes
+
+1. Prépare ta photo :
+   - **Format :** JPG (pas PNG — trop lourd)
+   - **Orientation :** paysage (horizontale obligatoire)
+   - **Taille :** au moins **1 920 px de large**
+   - **Poids :** moins de **1 Mo** (compresse sur [squoosh.app](https://squoosh.app) si besoin)
+
+2. Renomme ta photo **exactement** `hero1.jpg` (ou `hero2.jpg` pour la deuxième)
+
+3. Glisse-dépose le fichier dans le dossier `photos/` en **écrasant** l'ancien
+
+4. Redéploie le dossier `immo-site/` sur Netlify
+
+> 💡 **Conseil :** mets ta plus belle photo de vue mer en `hero1.jpg` — c'est elle qui s'affiche en premier au chargement du site.
+
+> 💡 Si tu ne veux **qu'une seule photo** de fond : utilise la même image pour `hero1.jpg` et `hero2.jpg`.
 
 ---
 
 ## 🌍 Changer la langue par défaut
 
-Le site s'ouvre en français par défaut. Pour ouvrir en néerlandais :
-
-Dans `index.html`, cherche `currentLang = 'fr'` et remplace par `currentLang = 'nl'`.
+Le site s'ouvre en français. Pour ouvrir en néerlandais :  
+Dans `index.html`, cherche `currentLang = 'fr'` → remplace par `currentLang = 'nl'`.
 
 ---
 
-## 📱 Générer un QR code pour vitrines / flyers
+## 📱 Générer un QR code (vitrines / flyers)
 
 1. Va sur [qr-code-generator.com](https://www.qr-code-generator.com)
-2. Colle l'URL de ton site Netlify
-3. Personnalise la couleur (terre cuite = `#C4622D`)
+2. Colle l'URL Netlify de ton site
+3. Couleur terre cuite : `#C4622D`
 4. Télécharge en PNG haute résolution
-5. Glisse-dépose dans Word, Canva, ou ton logiciel de flyers
 
 ---
 
 ## 🆘 En cas de problème
 
-**Le site ne s'affiche pas après déploiement ?**
-→ Vérifie que tu as glissé-déposé le dossier `immo-site/` et pas juste le fichier `index.html`
-
-**La carte ne s'affiche pas ?**
-→ Ouvre le site dans Chrome → F12 → onglet "Console" → signale-moi l'erreur en rouge
-
-**Une photo ne s'affiche pas ?**
-→ Vérifie le nom exact du fichier (majuscules/minuscules comptent) et qu'il est bien dans `photos/`
-
-**Tu veux changer une couleur ?**
-→ En haut de `index.html`, cherche `:root {` — toutes les couleurs du site sont là
+| Problème | Solution |
+|---|---|
+| Site ne s'affiche pas après déploiement | Vérifie que tu as glissé le **dossier** `immo-site/`, pas juste `index.html` |
+| La carte ne s'affiche pas | Chrome → F12 → onglet "Console" → note l'erreur rouge |
+| Une photo ne s'affiche pas | Vérifie le nom exact du fichier (majuscules comptent) et qu'il est dans `photos/` |
+| Changer une couleur | En haut de `index.html`, cherche `:root {` — toutes les couleurs sont là |
 
 ---
 
-## 📁 Structure du dossier livré
+## 📁 Structure du dossier
 
 ```
 immo-site/
-├── index.html              ← le site entier (1 seul fichier)
+├── index.html              ← le site entier (1 seul fichier à modifier)
 ├── photos/
-│   ├── hero1.jpg           ← fond hero (à ajouter)
-│   ├── hero2.jpg           ← fond hero (à ajouter)
-│   └── (tes photos de biens)
+│   ├── hero1.jpg           ← fond fixe du site (à remplacer par une vraie photo)
+│   ├── hero2.jpg           ← fond fixe du site (à remplacer par une vraie photo)
+│   ├── bien1_terrace.jpg
+│   └── ...
 ├── videos/
 │   └── (tes vidéos .mp4)
-├── README.md               ← guide rapide
-└── GUIDE-UTILISATION.md   ← ce guide complet
+└── GUIDE-UTILISATION.md   ← ce guide
 ```
