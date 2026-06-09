@@ -1924,11 +1924,17 @@ function openModal(id) {
   updateGallery();
   // Stats
   const statsLang = bien.stats[lang];
-  const statsHtml = Object.entries(statsLang).map(([k, v]) => `
-    <div class="modal-stat">
-      <div class="modal-stat-val">${v}</div>
+  const adresseKeys = { fr: 'Adresse', en: 'Address', nl: 'Adres' };
+  const statsHtml = Object.entries(statsLang).map(([k, v]) => {
+    const isAdresse = k === adresseKeys[lang];
+    const valHtml = isAdresse
+      ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(bien.adresseComplete)}" target="_blank" rel="noopener" style="color:var(--terre);text-decoration:underline;font-size:inherit">${v}</a>`
+      : v;
+    return `<div class="modal-stat">
+      <div class="modal-stat-val">${valHtml}</div>
       <div class="modal-stat-key">${k}</div>
-    </div>`).join('') + `<div class="modal-stat">
+    </div>`;
+  }).join('') + `<div class="modal-stat">
       <div class="modal-stat-val">${bien.stats['m²']}</div>
       <div class="modal-stat-key">m²</div>
     </div>`;
