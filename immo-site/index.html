@@ -1242,18 +1242,8 @@
     </div>
     <div class="hero-stats">
       <div class="stat-item">
-        <div class="stat-num" id="stat-vendus">0</div>
-        <div class="stat-label" data-i18n="stat_vendus">Biens vendus</div>
-      </div>
-      <div class="stat-sep"></div>
-      <div class="stat-item">
         <div class="stat-num" id="stat-dispo">0</div>
-        <div class="stat-label" data-i18n="stat_dispo">Disponibles</div>
-      </div>
-      <div class="stat-sep"></div>
-      <div class="stat-item">
-        <div class="stat-num" id="stat-annees">0</div>
-        <div class="stat-label" data-i18n="stat_annees">Années d'expérience</div>
+        <div class="stat-label" data-i18n="stat_dispo">Biens disponibles</div>
       </div>
     </div>
   </div>
@@ -1634,9 +1624,7 @@ const I18N = {
     hero_subtitle: "Appartements, maisons et villas avec vue mer. Un service personnalisé, une connaissance intime du territoire.",
     hero_cta1: "Voir les biens",
     hero_cta2: "Nous contacter",
-    stat_vendus: "Biens vendus",
-    stat_dispo: "Disponibles",
-    stat_annees: "Années d'expérience",
+    stat_dispo: "Biens disponibles",
     biens_eyebrow: "Notre sélection",
     biens_title_em: "Biens",
     biens_title: "disponibles",
@@ -1682,9 +1670,7 @@ const I18N = {
     hero_subtitle: "Apartments, houses and villas with sea views. A personalised service and an intimate knowledge of the area.",
     hero_cta1: "See properties",
     hero_cta2: "Contact us",
-    stat_vendus: "Properties sold",
-    stat_dispo: "Available",
-    stat_annees: "Years of experience",
+    stat_dispo: "Properties available",
     biens_eyebrow: "Our selection",
     biens_title_em: "Properties",
     biens_title: "available",
@@ -1730,9 +1716,7 @@ const I18N = {
     hero_subtitle: "Appartementen, huizen en villa's met zeezicht. Persoonlijke service en grondige kennis van de regio.",
     hero_cta1: "Bekijk woningen",
     hero_cta2: "Neem contact op",
-    stat_vendus: "Verkochte woningen",
-    stat_dispo: "Beschikbaar",
-    stat_annees: "Jaar ervaring",
+    stat_dispo: "Beschikbare woningen",
     biens_eyebrow: "Onze selectie",
     biens_title_em: "Woningen",
     biens_title: "beschikbaar",
@@ -1825,9 +1809,7 @@ function animateCounter(el, target, duration = 1600) {
 const statsObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      animateCounter(document.getElementById('stat-vendus'), 87);
       animateCounter(document.getElementById('stat-dispo'), BIENS.length);
-      animateCounter(document.getElementById('stat-annees'), 14);
       statsObserver.disconnect();
     }
   });
