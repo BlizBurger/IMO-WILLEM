@@ -9,8 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1265,19 +1263,6 @@
     <div class="biens-grid" id="biens-grid"></div>
   </div>
 </section>
-<!-- ===== CARTE ===== -->
-<div class="divider"></div>
-<section id="carte">
-  <div class="section">
-    <div class="section-header">
-      <div class="section-eyebrow" data-i18n="carte_eyebrow">Localisation</div>
-      <h2 class="section-title"><span data-i18n="carte_title">Les biens sur la</span> <em data-i18n="carte_title_em">carte</em></h2>
-    </div>
-  </div>
-  <div id="map-container">
-    <div id="map"></div>
-  </div>
-</section>
 <!-- ===== CONTACT ===== -->
 <div class="divider" style="margin-top:0"></div>
 <section id="contact">
@@ -1531,8 +1516,6 @@
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
   </svg>
 </a>
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLcE=" crossorigin=""></script>
 <script>
 // ===== DONNÉES BIENS =====
 const BIENS = [
@@ -1611,9 +1594,9 @@ const BIENS = [
     adresseComplete: "28 Rue de la Fontaine, 06190 Roquebrune-Cap-Martin",
     lat: 43.7650, lng: 7.4592,
     tags: {
-      fr: ["96 m²", "3 chambres", "Jardin privatif", "Terrasse", "DPE C"],
-      en: ["96 m²", "3 bedrooms", "Private garden", "Terrace", "EPC C"],
-      nl: ["96 m²", "3 slaapkamers", "Privétuin", "Terras", "EPC C"]
+      fr: ["96 m²", "3 chambres", "Vue mer", "Jardin privatif", "DPE C"],
+      en: ["96 m²", "3 bedrooms", "Sea view", "Private garden", "EPC C"],
+      nl: ["96 m²", "3 slaapkamers", "Zeezicht", "Privétuin", "EPC C"]
     },
     photos: [
       "photos/bien5_dining_room.jpg",
@@ -1648,6 +1631,53 @@ const BIENS = [
       fr: "Maison de village sur plusieurs niveaux dans le vieux Roquebrune-Cap-Martin, offrant 96,60 m² et une distribution généreuse et rare dans ce secteur : trois chambres dont deux avec salle d'eau privative, une salle à manger séparée, une cuisine indépendante, un grand séjour au rez-de-jardin, une terrasse et un jardin privatif.\n\nLe bien se distingue par sa performance énergétique exceptionnelle pour un bâtiment ancien — DPE C à 156 kWh/m²/an, avec des émissions GES très faibles (6 kg CO₂/m²/an) — et l'absence totale d'amiante détectée lors du diagnostic.\n\nUne buanderie complète l'ensemble. Construction antérieure à 1949, dans une rue du village médiéval piétonnier, à 10 minutes à pied de la mer et à 15 minutes de Monaco en voiture. Un bien familial spacieux et sain, idéal comme résidence principale ou secondaire.",
       en: "Multi-level village house in old Roquebrune-Cap-Martin, offering 96.60 m² and a generous layout rare in this area: three bedrooms including two with private en-suite, a separate dining room, an independent kitchen, a large living room at garden level, a terrace, and a private garden.\n\nThe property stands out for its exceptional energy performance for a period building — EPC C at 156 kWh/m²/year, with very low GHG emissions (6 kg CO₂/m²/year) — and the complete absence of asbestos detected during the survey.\n\nA utility room completes the offering. Pre-1949 construction in a pedestrian street of the medieval village, 10 minutes on foot from the sea and 15 minutes from Monaco by car. A spacious, healthy family home — ideal as a primary or secondary residence.",
       nl: "Meerniveaus dorpswoning in oud Roquebrune-Cap-Martin, met 96,60 m² en een royale indeling die zeldzaam is in deze omgeving: drie slaapkamers waarvan twee met privé ensuite, een aparte eetkamer, een onafhankelijke keuken, een grote woonkamer op tuinniveau, een terras en een privétuin.\n\nHet pand onderscheidt zich door zijn uitzonderlijke energieprestatie voor een oud gebouw — EPC C met 156 kWh/m²/jaar en zeer lage broeikasgasemissies (6 kg CO₂/m²/jaar) — en de volledige afwezigheid van asbest bij het onderzoek.\n\nEen wasruimte completeert het geheel. Bouw vóór 1949, in een voetgangersstraat van het middeleeuwse dorp, 10 minuten te voet van de zee en 15 minuten van Monaco met de auto. Een ruime, gezonde gezinswoning — ideaal als hoofd- of vakantieverblijf."
+    }
+  },
+  {
+    id: 3,
+    type: "appartement",
+    badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
+    badgeClass: "",
+    prix: "Prix sur demande",
+    prixNum: 0,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
+    adresseComplete: "3 Rue de la Carrière, 06190 Roquebrune-Cap-Martin",
+    lat: 43.765465, lng: 7.460029,
+    tags: {
+      fr: ["108 m² Carrez", "4 pièces", "Duplex 4 niveaux", "Terrasse 10 m²", "Chaudière gaz 2023"],
+      en: ["108 m² Carrez", "4 rooms", "4-level duplex", "10 m² terrace", "Gas boiler 2023"],
+      nl: ["108 m² Carrez", "4 kamers", "Duplex 4 niveaus", "Terras 10 m²", "Gasketel 2023"]
+    },
+    photos: [
+      "photos/bien3_01.jpg",
+      "photos/bien3_02.jpg",
+      "photos/bien3_03.jpg",
+      "photos/bien3_04.jpg",
+      "photos/bien3_05.jpg",
+      "photos/bien3_06.jpg",
+      "photos/bien3_07.jpg"
+    ],
+    video: null,
+    stats: {
+      "m²": 108,
+      fr: { "Adresse": "3 Rue de la Carrière, Roquebrune-Cap-Martin", "Pièces": "4", "Niveaux": 4, "Terrasse": "10,2 m²", "DPE": "E" },
+      en: { "Address": "3 Rue de la Carrière, Roquebrune-Cap-Martin", "Rooms": "4", "Levels": 4, "Terrace": "10.2 m²", "EPC": "E" },
+      nl: { "Adres": "3 Rue de la Carrière, Roquebrune-Cap-Martin", "Kamers": "4", "Niveaus": 4, "Terras": "10,2 m²", "EPC": "E" }
+    },
+    caracteristiques: {
+      fr: ["108,03 m² Carrez + 22 m² hors Carrez", "Duplex sur 4 niveaux dans maison de village ancienne (~1800)", "2 chambres + chambre enfants + pièce au dernier étage", "Grand séjour de 23,5 m² au 1er étage", "Chambre principale de 26 m² avec dressing attenant de 9,5 m²", "Terrasse couverte de 10,2 m² au dernier niveau", "2 salles d'eau / salles de bain avec WC", "Chaudière gaz à condensation neuve (2023)", "Installation gaz sans aucune anomalie", "Aucune amiante détectée, absence de termites", "Poutres apparentes en bois, murs en pierre", "Village médiéval piétonnier"],
+      en: ["108.03 m² Carrez + 22 m² additional floor area", "Duplex over 4 levels in a period village house (c.1800)", "2 bedrooms + child's bedroom + top-floor room", "Large 23.5 m² living room on the 1st floor", "26 m² master bedroom with adjoining 9.5 m² dressing room", "Covered 10.2 m² terrace on the top level", "2 shower/bathrooms with WC", "Brand-new condensing gas boiler (2023)", "Gas installation without any anomaly", "No asbestos detected, no termites", "Exposed wooden beams, stone walls", "Pedestrian medieval village"],
+      nl: ["108,03 m² Carrez + 22 m² extra vloeroppervlak", "Duplex over 4 niveaus in een oud dorpshuis (~1800)", "2 slaapkamers + kinderkamer + kamer op de bovenverdieping", "Grote woonkamer van 23,5 m² op de 1e verdieping", "Hoofdslaapkamer van 26 m² met aangrenzende dressing van 9,5 m²", "Overdekt terras van 10,2 m² op het bovenste niveau", "2 bad-/doucheruimtes met WC", "Gloednieuwe condenserende gasketel (2023)", "Gasinstallatie zonder enige afwijking", "Geen asbest aangetroffen, geen termieten", "Zichtbare houten balken, stenen muren", "Voetgangers middeleeuws dorp"]
+    },
+    distances: {
+      fr: { "Parkings village": "3 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "3 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "3 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
+    },
+    description: {
+      fr: "Rare au cœur du village médiéval : grand appartement en duplex de 108,03 m² Carrez (plus de 22 m² supplémentaires hors Carrez) distribué sur quatre niveaux dans une maison de village ancienne (~1800), en pierre avec poutres apparentes.\n\nAu rez-de-chaussée : l'entrée, la cuisine indépendante et la salle à manger aux murs de pierre apparente. Au 1er étage : le grand séjour lumineux de 23,5 m² avec trois fenêtres, la chambre enfants et une salle d'eau avec WC. Au 2e étage : la suite parentale de 26 m² avec cinq fenêtres, son dressing attenant de 9,5 m² et sa salle de bains avec WC. Au dernier niveau : une pièce supplémentaire (bureau ou chambre d'appoint) ouvrant sur la terrasse couverte de 10,2 m².\n\nLe confort a été entièrement repensé : chaudière gaz à condensation installée en 2023, installation gaz certifiée sans aucune anomalie. Les diagnostics sont rassurants — aucune amiante détectée, absence de termites. Un bien de caractère spacieux, à quelques minutes à pied des parkings du village, de la mer et à 15 minutes de Monaco.",
+      en: "Rare in the heart of the medieval village: a large 108.03 m² Carrez duplex apartment (plus over 22 m² of additional floor area) spread over four levels in a period stone village house (c.1800) with exposed beams.\n\nOn the ground floor: the entrance hall, an independent kitchen, and the dining room with exposed stone walls. On the 1st floor: the bright 23.5 m² living room with three windows, the child's bedroom, and a shower room with WC. On the 2nd floor: the 26 m² master suite with five windows, its adjoining 9.5 m² dressing room, and a bathroom with WC. On the top level: an extra room (study or spare bedroom) opening onto the covered 10.2 m² terrace.\n\nComfort has been fully upgraded: a condensing gas boiler installed in 2023, and a gas installation certified without a single anomaly. The surveys are reassuring — no asbestos detected, no termites. A spacious property full of character, a few minutes' walk from the village car parks and the sea, and 15 minutes from Monaco.",
+      nl: "Zeldzaam in het hart van het middeleeuwse dorp: een groot duplexappartement van 108,03 m² Carrez (plus ruim 22 m² extra vloeroppervlak) verdeeld over vier niveaus in een oud stenen dorpshuis (~1800) met zichtbare balken.\n\nOp de begane grond: de entree, een onafhankelijke keuken en de eetkamer met zichtbare stenen muren. Op de 1e verdieping: de lichte woonkamer van 23,5 m² met drie ramen, de kinderkamer en een doucheruimte met WC. Op de 2e verdieping: de hoofdslaapkamer van 26 m² met vijf ramen, de aangrenzende dressing van 9,5 m² en een badkamer met WC. Op het bovenste niveau: een extra kamer (kantoor of logeerkamer) met toegang tot het overdekte terras van 10,2 m².\n\nHet comfort is volledig vernieuwd: condenserende gasketel geïnstalleerd in 2023, gasinstallatie gecertificeerd zonder enige afwijking. De keuringen zijn geruststellend — geen asbest aangetroffen, geen termieten. Een ruim karaktervol pand, op enkele minuten lopen van de dorpsparkeerplaatsen en de zee, en op 15 minuten van Monaco."
     }
   }
 ];
@@ -1797,8 +1827,6 @@ let currentLang = 'fr';
 let currentFilter = 'tous';
 let currentBien = null;
 let galleryIndex = 0;
-let mapInstance = null;
-let mapMarkers = [];
 // ===== LANG =====
 function setLang(lang) {
   currentLang = lang;
@@ -2022,31 +2050,6 @@ function goToSlide(i) {
   galleryIndex = i;
   updateGallery();
 }
-// ===== CARTE LEAFLET =====
-function initMap() {
-  mapInstance = L.map('map', {
-    scrollWheelZoom: false,
-    zoomControl: true
-  }).setView([43.762, 7.47], 11);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-  }).addTo(mapInstance);
-  BIENS.forEach(bien => {
-    const pillHtml = `<div class="map-marker-pill">${bien.prix}</div>`;
-    const icon = L.divIcon({
-      html: pillHtml,
-      className: '',
-      iconAnchor: [40, 15],
-      iconSize: [80, 30]
-    });
-    const marker = L.marker([bien.lat, bien.lng], { icon })
-      .addTo(mapInstance)
-      .on('click', () => openModal(bien.id));
-    mapMarkers.push(marker);
-  });
-}
 // ===== CONTACT FORM =====
 function handleFormSubmit(e) {
   e.preventDefault();
@@ -2100,7 +2103,6 @@ setInterval(() => {
 }, 6000);
 // ===== INIT =====
 renderBiens();
-initMap();
 </script>
 </body>
 </html>
