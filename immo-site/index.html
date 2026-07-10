@@ -441,6 +441,26 @@
     .bien-badge.exclu {
       background: var(--bleu);
     }
+    .bien-ribbon {
+      position: absolute;
+      top: 20px;
+      right: -52px;
+      transform: rotate(45deg);
+      background: var(--olive);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 60px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .bien-photo.has-ribbon img {
+      filter: saturate(0.85) brightness(0.94);
+    }
     .bien-body {
       padding: 22px 24px 20px;
     }
@@ -1524,6 +1544,7 @@ const BIENS = [
     type: "maison",
     badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
     badgeClass: "exclu",
+    ribbon: { fr: "Sous compromis", en: "Under offer", nl: "Onder voorbehoud" },
     prix: "630 000 €",
     prixNum: 630000,
     localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
@@ -1908,9 +1929,10 @@ function renderBiens() {
       : `<div class="bien-photo-placeholder"><img src="${placeholderSVG(b.type)}" alt="${b.localisation[lang]}" /></div>`;
     const tags = b.tags[lang].map(t => `<span class="tag">${t}</span>`).join('');
     return `<div class="bien-card reveal" style="transition-delay:${i * 80}ms" onclick="openModal(${b.id})">
-      <div class="bien-photo">
+      <div class="bien-photo${b.ribbon ? ' has-ribbon' : ''}">
         ${photo}
         <div class="bien-badge${b.badgeClass === 'exclu' ? ' exclu' : ''}">${b.badge[lang]}</div>
+        ${b.ribbon ? `<div class="bien-ribbon">${b.ribbon[lang]}</div>` : ''}
       </div>
       <div class="bien-body">
         <div class="bien-prix">${b.prix}</div>
