@@ -1545,6 +1545,7 @@ const BIENS = [
   {
     id: 1,
     type: "maison",
+    hidden: true,
     badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
     badgeClass: "exclu",
     ribbon: { fr: "Sous compromis", en: "Under offer", nl: "Onder voorbehoud" },
@@ -1896,7 +1897,7 @@ function animateCounter(el, target, duration = 1600) {
 const statsObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      animateCounter(document.getElementById('stat-dispo'), BIENS.length);
+      animateCounter(document.getElementById('stat-dispo'), BIENS.filter(b => !b.hidden).length);
       statsObserver.disconnect();
     }
   });
@@ -1918,10 +1919,11 @@ function placeholderSVG(type) {
 function renderBiens() {
   const grid = document.getElementById('biens-grid');
   const lang = currentLang;
-  let filtered = BIENS;
-  if (currentFilter === 'appartement') filtered = BIENS.filter(b => b.type === 'appartement');
-  else if (currentFilter === 'maison') filtered = BIENS.filter(b => b.type === 'maison');
-  else if (currentFilter === 'vmer') filtered = BIENS.filter(b => b.tags[lang].some(t => t.toLowerCase().includes('mer') || t.toLowerCase().includes('sea') || t.toLowerCase().includes('zee')));
+  const visibles = BIENS.filter(b => !b.hidden);
+  let filtered = visibles;
+  if (currentFilter === 'appartement') filtered = visibles.filter(b => b.type === 'appartement');
+  else if (currentFilter === 'maison') filtered = visibles.filter(b => b.type === 'maison');
+  else if (currentFilter === 'vmer') filtered = visibles.filter(b => b.tags[lang].some(t => t.toLowerCase().includes('mer') || t.toLowerCase().includes('sea') || t.toLowerCase().includes('zee')));
   if (filtered.length === 0) {
     grid.innerHTML = `<div class="no-biens">${I18N[lang].no_biens}</div>`;
     return;
