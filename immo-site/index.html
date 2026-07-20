@@ -441,6 +441,29 @@
     .bien-badge.exclu {
       background: var(--bleu);
     }
+    .bien-ribbon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      transform-origin: center;
+      background: rgba(107, 124, 63, 0.94);
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 11px 0;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      z-index: 3;
+      pointer-events: none;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .bien-photo.has-ribbon img {
+      filter: saturate(0.8) brightness(0.9);
+    }
     .bien-body {
       padding: 22px 24px 20px;
     }
@@ -1522,8 +1545,10 @@ const BIENS = [
   {
     id: 1,
     type: "maison",
+    hidden: true,
     badge: { fr: "Exclusivité", en: "Exclusive", nl: "Exclusief" },
     badgeClass: "exclu",
+    ribbon: { fr: "Sous compromis", en: "Under offer", nl: "Onder voorbehoud" },
     prix: "630 000 €",
     prixNum: 630000,
     localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
@@ -1635,7 +1660,7 @@ const BIENS = [
   },
   {
     id: 3,
-    type: "appartement",
+    type: "maison",
     badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
     badgeClass: "",
     prix: "799 000 €",
@@ -1651,7 +1676,6 @@ const BIENS = [
     photos: [
       "photos/bien3_01.jpg.png",
       "photos/bien3_02.jpg.png",
-      "photos/bien3_03.jpg.png",
       "photos/bien3_04.jpg.png",
       "photos/bien3_05.jpg.png",
       "photos/bien3_06.jpg.jpeg",
@@ -1675,9 +1699,60 @@ const BIENS = [
       nl: { "Dorpsparkeerplaats": "3 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
     },
     description: {
-      fr: "Rare au cœur du village médiéval : grand appartement en duplex de 108,03 m² Carrez (plus de 22 m² supplémentaires hors Carrez) distribué sur quatre niveaux dans une maison de village ancienne (~1800), en pierre avec poutres apparentes.\n\nAu rez-de-chaussée : l'entrée, la cuisine indépendante et la salle à manger aux murs de pierre apparente. Au 1er étage : le grand séjour lumineux de 23,5 m² avec trois fenêtres, la chambre enfants et une salle d'eau avec WC. Au 2e étage : la suite parentale de 26 m² avec cinq fenêtres, son dressing attenant de 9,5 m² et sa salle de bains avec WC. Au dernier niveau : une pièce supplémentaire (bureau ou chambre d'appoint) ouvrant sur la terrasse couverte de 10,2 m².\n\nLe confort a été entièrement repensé : chaudière gaz à condensation installée en 2023, installation gaz certifiée sans aucune anomalie. Les diagnostics sont rassurants — aucune amiante détectée, absence de termites. Un bien de caractère spacieux, à quelques minutes à pied des parkings du village, de la mer et à 15 minutes de Monaco.",
-      en: "Rare in the heart of the medieval village: a large 108.03 m² Carrez duplex apartment (plus over 22 m² of additional floor area) spread over four levels in a period stone village house (c.1800) with exposed beams.\n\nOn the ground floor: the entrance hall, an independent kitchen, and the dining room with exposed stone walls. On the 1st floor: the bright 23.5 m² living room with three windows, the child's bedroom, and a shower room with WC. On the 2nd floor: the 26 m² master suite with five windows, its adjoining 9.5 m² dressing room, and a bathroom with WC. On the top level: an extra room (study or spare bedroom) opening onto the covered 10.2 m² terrace.\n\nComfort has been fully upgraded: a condensing gas boiler installed in 2023, and a gas installation certified without a single anomaly. The surveys are reassuring — no asbestos detected, no termites. A spacious property full of character, a few minutes' walk from the village car parks and the sea, and 15 minutes from Monaco.",
-      nl: "Zeldzaam in het hart van het middeleeuwse dorp: een groot duplexappartement van 108,03 m² Carrez (plus ruim 22 m² extra vloeroppervlak) verdeeld over vier niveaus in een oud stenen dorpshuis (~1800) met zichtbare balken.\n\nOp de begane grond: de entree, een onafhankelijke keuken en de eetkamer met zichtbare stenen muren. Op de 1e verdieping: de lichte woonkamer van 23,5 m² met drie ramen, de kinderkamer en een doucheruimte met WC. Op de 2e verdieping: de hoofdslaapkamer van 26 m² met vijf ramen, de aangrenzende dressing van 9,5 m² en een badkamer met WC. Op het bovenste niveau: een extra kamer (kantoor of logeerkamer) met toegang tot het overdekte terras van 10,2 m².\n\nHet comfort is volledig vernieuwd: condenserende gasketel geïnstalleerd in 2023, gasinstallatie gecertificeerd zonder enige afwijking. De keuringen zijn geruststellend — geen asbest aangetroffen, geen termieten. Een ruim karaktervol pand, op enkele minuten lopen van de dorpsparkeerplaatsen en de zee, en op 15 minuten van Monaco."
+      fr: "Rare au cœur du village médiéval : grande maison de village en duplex de 108,03 m² Carrez (plus de 22 m² supplémentaires hors Carrez) distribué sur quatre niveaux dans une maison de village ancienne (~1800), en pierre avec poutres apparentes.\n\nAu rez-de-chaussée : l'entrée, la cuisine indépendante et la salle à manger aux murs de pierre apparente. Au 1er étage : le grand séjour lumineux de 23,5 m² avec trois fenêtres, la chambre enfants et une salle d'eau avec WC. Au 2e étage : la suite parentale de 26 m² avec cinq fenêtres, son dressing attenant de 9,5 m² et sa salle de bains avec WC. Au dernier niveau : une pièce supplémentaire (bureau ou chambre d'appoint) ouvrant sur la terrasse couverte de 10,2 m².\n\nLe confort a été entièrement repensé : chaudière gaz à condensation installée en 2023, installation gaz certifiée sans aucune anomalie. Les diagnostics sont rassurants — aucune amiante détectée, absence de termites. Un bien de caractère spacieux, à quelques minutes à pied des parkings du village, de la mer et à 15 minutes de Monaco.",
+      en: "Rare in the heart of the medieval village: a large 108.03 m² Carrez duplex village house (plus over 22 m² of additional floor area) spread over four levels in a period stone village house (c.1800) with exposed beams.\n\nOn the ground floor: the entrance hall, an independent kitchen, and the dining room with exposed stone walls. On the 1st floor: the bright 23.5 m² living room with three windows, the child's bedroom, and a shower room with WC. On the 2nd floor: the 26 m² master suite with five windows, its adjoining 9.5 m² dressing room, and a bathroom with WC. On the top level: an extra room (study or spare bedroom) opening onto the covered 10.2 m² terrace.\n\nComfort has been fully upgraded: a condensing gas boiler installed in 2023, and a gas installation certified without a single anomaly. The surveys are reassuring — no asbestos detected, no termites. A spacious property full of character, a few minutes' walk from the village car parks and the sea, and 15 minutes from Monaco.",
+      nl: "Zeldzaam in het hart van het middeleeuwse dorp: een grote duplex dorpswoning van 108,03 m² Carrez (plus ruim 22 m² extra vloeroppervlak) verdeeld over vier niveaus in een oud stenen dorpshuis (~1800) met zichtbare balken.\n\nOp de begane grond: de entree, een onafhankelijke keuken en de eetkamer met zichtbare stenen muren. Op de 1e verdieping: de lichte woonkamer van 23,5 m² met drie ramen, de kinderkamer en een doucheruimte met WC. Op de 2e verdieping: de hoofdslaapkamer van 26 m² met vijf ramen, de aangrenzende dressing van 9,5 m² en een badkamer met WC. Op het bovenste niveau: een extra kamer (kantoor of logeerkamer) met toegang tot het overdekte terras van 10,2 m².\n\nHet comfort is volledig vernieuwd: condenserende gasketel geïnstalleerd in 2023, gasinstallatie gecertificeerd zonder enige afwijking. De keuringen zijn geruststellend — geen asbest aangetroffen, geen termieten. Een ruim karaktervol pand, op enkele minuten lopen van de dorpsparkeerplaatsen en de zee, en op 15 minuten van Monaco."
+    }
+  },
+  {
+    id: 4,
+    type: "appartement",
+    badge: { fr: "Nouveau", en: "New", nl: "Nieuw" },
+    badgeClass: "",
+    prix: "250 000 €",
+    prixNum: 250000,
+    localisation: { fr: "Roquebrune-Cap-Martin — Village médiéval", en: "Roquebrune-Cap-Martin — Medieval village", nl: "Roquebrune-Cap-Martin — Middeleeuws dorp" },
+    adresseComplete: "6 Rue de la Fontaine, 06190 Roquebrune-Cap-Martin",
+    lat: 43.7649, lng: 7.4590,
+    tags: {
+      fr: ["46 m² Carrez", "2 pièces", "1 chambre", "1er étage", "Prix négociable"],
+      en: ["46 m² Carrez", "2 rooms", "1 bedroom", "1st floor", "Price negotiable"],
+      nl: ["46 m² Carrez", "2 kamers", "1 slaapkamer", "1e verdieping", "Prijs bespreekbaar"]
+    },
+    photos: [
+      "photos/bien4_01.jpg",
+      "photos/bien4_02.jpg",
+      "photos/bien4_03.jpg",
+      "photos/bien4_04.jpg",
+      "photos/bien4_05.jpg",
+      "photos/bien4_06.jpg",
+      "photos/bien4_07.jpg",
+      "photos/bien4_08.jpg",
+      "photos/bien4_09.jpg",
+      "photos/bien4_10.jpg",
+      "photos/bien4_11.jpg"
+    ],
+    video: null,
+    stats: {
+      "m²": 46,
+      fr: { "Adresse": "6 Rue de la Fontaine, Roquebrune-Cap-Martin", "Surface": "45,88 m² Carrez", "Pièces": "2 (1 chambre)", "Étage": "1er — porte droite", "Amiante": "Absente" },
+      en: { "Address": "6 Rue de la Fontaine, Roquebrune-Cap-Martin", "Area": "45.88 m² Carrez", "Rooms": "2 (1 bedroom)", "Floor": "1st — right door", "Asbestos": "None" },
+      nl: { "Adres": "6 Rue de la Fontaine, Roquebrune-Cap-Martin", "Oppervlakte": "45,88 m² Carrez", "Kamers": "2 (1 slaapkamer)", "Verdieping": "1e — rechterdeur", "Asbest": "Geen" }
+    },
+    caracteristiques: {
+      fr: ["45,88 m² Carrez au 1er étage", "Séjour de 15,5 m² lumineux", "Chambre de 15,1 m²", "Salle à manger / cuisine de 13 m²", "Salle d'eau avec WC", "Aucune amiante détectée au diagnostic", "Peu de travaux : cuisine, peintures et sol d'entrée à rafraîchir", "Immeuble ancien de caractère (avant 1949)", "Cœur du village médiéval piétonnier", "Prix négociable"],
+      en: ["45.88 m² Carrez on the 1st floor", "Bright 15.5 m² living room", "15.1 m² bedroom", "13 m² dining room / kitchen", "Shower room with WC", "No asbestos detected in the survey", "Light works only: kitchen, paint and entrance floor to refresh", "Characterful period building (pre-1949)", "Heart of the pedestrian medieval village", "Price negotiable"],
+      nl: ["45,88 m² Carrez op de 1e verdieping", "Lichte woonkamer van 15,5 m²", "Slaapkamer van 15,1 m²", "Eetkamer / keuken van 13 m²", "Doucheruimte met WC", "Geen asbest aangetroffen bij de keuring", "Weinig werk: keuken, schilderwerk en vloer entree opfrissen", "Karaktervol oud gebouw (vóór 1949)", "Hart van het voetgangers middeleeuwse dorp", "Prijs bespreekbaar"]
+    },
+    distances: {
+      fr: { "Parkings village": "3 min à pied", "Mer / plage": "10 min à pied", "Monaco": "15 min en voiture", "Gare Carnolès": "10 min à pied" },
+      en: { "Village parking": "3 min walk", "Sea / beach": "10 min walk", "Monaco": "15 min by car", "Carnolès station": "10 min walk" },
+      nl: { "Dorpsparkeerplaats": "3 min lopen", "Zee / strand": "10 min lopen", "Monaco": "15 min rijden", "Station Carnolès": "10 min lopen" }
+    },
+    description: {
+      fr: "Charmant deux-pièces de 45,88 m² Carrez au 1er étage d'un immeuble ancien de caractère, au cœur du village médiéval de Roquebrune-Cap-Martin. L'appartement se compose d'un séjour lumineux de 15,5 m², d'une chambre de 15,1 m², d'une salle à manger avec cuisine de 13 m² et d'une salle d'eau avec WC.\n\nUn bien sain et prêt à recevoir votre touche personnelle : le diagnostic n'a révélé aucune amiante, et seuls quelques rafraîchissements sont à prévoir selon vos goûts — la cuisine, les peintures et un nouveau sol dans l'entrée. L'idéal pour créer un intérieur moderne et lumineux dans un cadre plein de charme.\n\nSitué dans une ruelle piétonne du vieux village, à quelques minutes des parkings, à 10 minutes à pied de la mer et 15 minutes de Monaco en voiture. Une belle opportunité — prix négociable — parfaite pour un premier achat, un pied-à-terre sur la Riviera ou un investissement locatif.",
+      en: "Charming two-room apartment of 45.88 m² Carrez on the 1st floor of a characterful period building, in the heart of the medieval village of Roquebrune-Cap-Martin. It comprises a bright 15.5 m² living room, a 15.1 m² bedroom, a 13 m² dining room with kitchen, and a shower room with WC.\n\nA healthy home ready for your personal touch: the survey revealed no asbestos, and only a few refreshments are needed to your taste — the kitchen, the paintwork, and a new floor in the entrance. Ideal for creating a bright, modern interior within a charming setting.\n\nSet in a pedestrian lane of the old village, a few minutes from the car parks, 10 minutes on foot from the sea and 15 minutes from Monaco by car. A lovely opportunity — price negotiable — perfect for a first purchase, a Riviera pied-à-terre, or a rental investment.",
+      nl: "Charmant tweekamerappartement van 45,88 m² Carrez op de 1e verdieping van een karaktervol oud gebouw, in het hart van het middeleeuwse dorp Roquebrune-Cap-Martin. Het bestaat uit een lichte woonkamer van 15,5 m², een slaapkamer van 15,1 m², een eetkamer met keuken van 13 m² en een doucheruimte met WC.\n\nEen gezonde woning klaar voor uw persoonlijke touch: de keuring toonde geen asbest, en slechts enkele opfrissingen zijn nodig naar uw smaak — de keuken, het schilderwerk en een nieuwe vloer in de entree. Ideaal om een licht, modern interieur te creëren in een charmante omgeving.\n\nGelegen in een voetgangersstraatje van het oude dorp, op enkele minuten van de parkeerplaatsen, 10 minuten lopen van de zee en 15 minuten van Monaco met de auto. Een mooie kans — prijs bespreekbaar — perfect voor een eerste aankoop, een pied-à-terre aan de Rivièra of een verhuurinvestering."
     }
   }
 ];
@@ -1873,7 +1948,7 @@ function animateCounter(el, target, duration = 1600) {
 const statsObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      animateCounter(document.getElementById('stat-dispo'), BIENS.length);
+      animateCounter(document.getElementById('stat-dispo'), BIENS.filter(b => !b.hidden).length);
       statsObserver.disconnect();
     }
   });
@@ -1895,10 +1970,11 @@ function placeholderSVG(type) {
 function renderBiens() {
   const grid = document.getElementById('biens-grid');
   const lang = currentLang;
-  let filtered = BIENS;
-  if (currentFilter === 'appartement') filtered = BIENS.filter(b => b.type === 'appartement');
-  else if (currentFilter === 'maison') filtered = BIENS.filter(b => b.type === 'maison');
-  else if (currentFilter === 'vmer') filtered = BIENS.filter(b => b.tags[lang].some(t => t.toLowerCase().includes('mer') || t.toLowerCase().includes('sea') || t.toLowerCase().includes('zee')));
+  const visibles = BIENS.filter(b => !b.hidden);
+  let filtered = visibles;
+  if (currentFilter === 'appartement') filtered = visibles.filter(b => b.type === 'appartement');
+  else if (currentFilter === 'maison') filtered = visibles.filter(b => b.type === 'maison');
+  else if (currentFilter === 'vmer') filtered = visibles.filter(b => b.tags[lang].some(t => t.toLowerCase().includes('mer') || t.toLowerCase().includes('sea') || t.toLowerCase().includes('zee')));
   if (filtered.length === 0) {
     grid.innerHTML = `<div class="no-biens">${I18N[lang].no_biens}</div>`;
     return;
@@ -1909,9 +1985,10 @@ function renderBiens() {
       : `<div class="bien-photo-placeholder"><img src="${placeholderSVG(b.type)}" alt="${b.localisation[lang]}" /></div>`;
     const tags = b.tags[lang].map(t => `<span class="tag">${t}</span>`).join('');
     return `<div class="bien-card reveal" style="transition-delay:${i * 80}ms" onclick="openModal(${b.id})">
-      <div class="bien-photo">
+      <div class="bien-photo${b.ribbon ? ' has-ribbon' : ''}">
         ${photo}
         <div class="bien-badge${b.badgeClass === 'exclu' ? ' exclu' : ''}">${b.badge[lang]}</div>
+        ${b.ribbon ? `<div class="bien-ribbon">${b.ribbon[lang]}</div>` : ''}
       </div>
       <div class="bien-body">
         <div class="bien-prix">${b.prix}</div>
